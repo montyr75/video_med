@@ -3,67 +3,91 @@ library client_connection_manager;
 import 'dart:html';
 import 'dart:async';
 import 'dart:convert';
+import 'package:polymer/polymer.dart';
 import 'package:VideoMed/global.dart';
 import 'package:VideoMed/message.dart';
 
-class ClientConnectionManager {
-  static const Duration RECONNECT_DELAY = const Duration(milliseconds: 500);
-
+class ClientConnectionManager extends Object with Observable {
   String _clientID;
-  String _wsURL = "ws://${Uri.base.host}:$PORT/ws";
+//  String _wsURL = "ws://${Uri.base.host}:$PORT/ws";   // this one will work in production
+  String _wsURL = "ws://${SERVER_IP}:$SERVER_PORT/ws";
   WebSocket _webSocket;
-  
+
+  @observable bool connecting = false;
+  @observable bool connected = false;
+
+  bool connectionPending = false;
+
   ClientConnectionManager(this._clientID) {
     _connectToServer();
   }
-  
-  void _connectToServer() {
-   _webSocket = new WebSocket(_wsURL);
 
-    print("Client connecting on: $_wsURL");
+  void _connectToServer() {
+    print("ClientConnectionManager:: connecting on: $_wsURL");
+    connecting = true;
+
+    _webSocket = new WebSocket(_wsURL);
 
     _webSocket.onOpen.first.then((_) {
-      print("Client now connected on: ${_webSocket.url}");
+      print("ClientConnectionManager:: now connected on: ${_webSocket.url}");
 
       _webSocket.onMessage.listen((MessageEvent event) {
         _messageReceived(event.data);
       });
 
       _webSocket.onClose.first.then((_) {
-        print("Client disconnected on: ${_webSocket.url}");
-        
-        _disconnected();
+        print("ClientConnectionManager:: disconnected on: ${_webSocket.url}");
 
-        // attempt to reconnect to the server
-        //new Timer(RECONNECT_DELAY, _connectToServer);
+        _disconnected();
       });
-      
-      sendMessage(CLIENT_ID_MSG, _clientID);
+
+      connecting = false;
+      connected = true;
+      connectionPending = false;
+
+      // register client ID with server
+      sendMessage(new Message(_clientID, Message.CLIENT_ID_REG, null));
     });
 
     _webSocket.onError.first.then((_) {
-      print("Client connection error on: ${_webSocket.url}");
+      print("ClientConnectionManager:: connection error on: ${_webSocket.url}");
+
+      _disconnected();
     });
   }
 
   void _messageReceived(String jsonStr) {
     Message message = new Message.fromMap(JSON.decode(jsonStr));
 
-    print("Client received message:\n${message}");
-    
+    print("ClientConnectionManager::_messageReceived():\n${message}");
+
     switch (message.type) {
-      case CLIENT_ID_ACK_MSG: eventBus.fire(clientConnectedEvent, message.msg); break;
+      case Message.CLIENT_ID_REG_ACK: eventBus.fire(clientConnectedEvent, message.msg); break;
+      case Message.CLIENT_ID_IN_USE: eventBus.fire(clientIDInUseEvent, message.msg); break;
     }
   }
-  
+
   void _disconnected() {
+    // if this is already being handled, don't repeat the connection retry
+    if (connectionPending) {
+      return;
+    }
+
+    connecting = false;
+    connected = false;
+    connectionPending = true;
+
     eventBus.fire(clientDisconnectedEvent, _clientID);
   }
-  
-  void sendMessage(String type, String msg) {
-    _webSocket.sendString("{'$type': '$msg'}");
+
+  void sendMessage(Message msg) {
+    _webSocket.sendString(JSON.encode(msg.toMap()));
   }
-  
-  String get clientID => _clientID; 
+
+  void disconnect() {
+    _webSocket.close();
+  }
+
+  String get clientID => _clientID;
 }
 

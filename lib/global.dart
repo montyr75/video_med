@@ -3,11 +3,9 @@ library global;
 import 'package:event_bus/event_bus.dart';
 
 // constants
-const int PORT = 9223;
-
-// message types
-const CLIENT_ID_MSG = "client id";                    // message identifies client to server
-const CLIENT_ID_ACK_MSG = "client id acknowledge";    // server acknowledges client ID registration
+const String SERVER_IP = "192.168.1.6";   // not used if there is a valid SERVER_HOST name
+const String SERVER_HOST = "Darkrealm";
+const int SERVER_PORT = 9223;
 
 // event bus
 EventBus eventBus = new EventBus();
@@ -15,3 +13,4 @@ EventBus eventBus = new EventBus();
 // events
 final EventType<String> clientConnectedEvent = new EventType<String>();
 final EventType<String> clientDisconnectedEvent = new EventType<String>();
+final EventType<String> clientIDInUseEvent = new EventType<String>();

@@ -2,10 +2,23 @@
   <template>
     <link rel="stylesheet" href="main_view.css" />
 
+    <style>
+      .connection-indicator {
+        width: 24px;
+        height: 24px;
+      }
+    </style>
+
     <h1>VideoMed Client</h1>
 
     <div class="box-container">
-      <button class="btn btn-default" on-click="{{sendMessage}}">Send Message</button>
+      <input type="text" value="{{clientID}}">
+      <button class="btn btn-default" on-click="{{connect}}" disabled?="{{ccm.connected || ccm.connecting}}">Connect</button>
+      <button class="btn btn-default" on-click="{{disconnect}}" disabled?="{{!ccm.connected || ccm.connecting}}">Disconnect</button>
+
+      <template if="{{ccm.connected}}"><img src="assets/images/connected.png" class="connection-indicator"></template>
+      <template if="{{ccm.connecting}}"><img src="assets/images/connecting.png" class="connection-indicator"></template>
+      <template if="{{!ccm.connected && !ccm.connecting}}"><img src="assets/images/disconnected.png" class="connection-indicator"></template>
     </div>
   </template>
 
