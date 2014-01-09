@@ -1,0 +1,52 @@
+'use strict';
+
+/* Controllers */
+
+angular.module('myApp.controllers', [])
+  .controller('MyCtrl1', ["$scope", function($scope) {
+    $scope.currentItemList = [];
+
+    $scope.categories = [
+      "Meat",
+      "Produce",
+      "Drinks"
+    ];
+
+    $scope.meat = [
+      new Meat("chicken", 3.99),
+      {name: "beef", price: 4.99},
+      {name: "pork", price: 2.99}
+    ];
+
+    $scope.produce = [
+      "lettuce",
+      "onions",
+      "apples"
+    ];
+
+    $scope.drinks = [
+      "<b>Pepsi</b>",
+      "A&W",
+      "Coke"
+    ];
+
+    $scope.onCategory = function(category) {
+      console.log(category);
+
+      $scope.currentItemList = $scope[category.toLowerCase()];
+    }
+  }])
+  .controller('MyCtrl2', "$scope", [function($scope) {
+    console.log($scope.produce);
+  }]);
+
+function Meat(name, price) {
+  console.log("Meat constructor");
+
+  this.name = name;
+  this.price = price;
+
+  this.printPrice = function() {
+    console.log(price);
+  }
+}

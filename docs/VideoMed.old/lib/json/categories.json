@@ -1,0 +1,17 @@
+[
+		{
+            "id": "0",
+            "name": "All",
+			"cat": ""
+        },
+        {
+            "id": "1",
+            "name": "Acne",
+			"cat": "acne"
+        },
+        {
+            "id": "2",
+            "name": "Dry Skin",
+			"cat": "dryskin"
+        }
+]

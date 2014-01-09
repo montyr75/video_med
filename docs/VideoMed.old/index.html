@@ -1,0 +1,85 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name="viewport" content="width=768px, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link rel="stylesheet" href="assets/styles/main.css" media="screen">
+	<link rel="stylesheet" href="assets/styles/bootstrap-combined.min.css" media="screen">
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="lib/scripts/angular.js"></script>
+	<script type="text/javascript" src="lib/scripts/angular-strap.min.js"></script>
+	<script type="text/javascript" src="lib/scripts/ui-bootstrap-tpls-0.5.0.js"></script>
+	<script type="text/javascript" src="lib/scripts/main.js"></script>
+</head>
+
+<body>
+<div id="wrap" ng-app="videoApp">
+    <div id="menu" ng-controller="buttonController">
+	  
+		<section id="buttonlist" >
+			<div ng-repeat="item in menuItems">
+				<button type="button" class="button" ng-click="linkFilter(item.cat)" >{{item.name}}</button>
+			</div >
+		</section>
+		
+		<section id="videowrap">
+			<ul ng-repeat="video in videoList| filter:videoSearch" >
+				<li>
+					<div class="videolabel">
+						<button class="plusbutton"  ng-click="addToPlaylist(video.link, video.title, video.id)">+</button>
+						<button class="plusbutton" ng-click="play(video.link, video.title)">></button>
+						{{video.title}}&nbsp;&nbsp;({{video.runtime}}mins)
+					</div>
+				</li>
+			</ul>
+
+			<div id="filmcontainer">
+				<div id="filmicon">
+					<p id="playlistcounter">{{playList.length}}</p>
+				</div>
+				<button id="filmviewbutton" ng-click="openPlayList()">View Play List</button>
+			</div>
+		</section>
+		
+      	<section id="roomlist">
+			<img alt="Exam Room 1" src="assets/images/LCD1off120.jpg" class="lcdImg">
+			<img alt="Exam Room 2" src="assets/images/LCD2off120.jpg" class="lcdImg">
+			<img alt="Exam Room 3" src="assets/images/LCD3off120.jpg" class="lcdImg">
+		</section>	
+      
+		<div modal="shouldBeOpen" close="close()" options="opts">
+			<div class="modal-header">
+				<h3>{{sampleVideo.title}}</h3>
+			</div>
+			<div class="modal-body">
+				<video width="320" height="240">
+					<source src="{{sampleVideo.link}}.mp4" type="video/mp4">
+					<!--<source src="movie.ogg" type="video/ogg">-->
+					Your browser does not support the video tag.
+				</video>
+			</div>
+			<div class="modal-footer">
+				<button ng-click="close()">Close</button>
+			</div>	
+		</div>
+		
+		<div modal="showPlayList" close="closePlayList()" options="opts">
+			<div class="modal-header">
+				<h3>Play List</h3>
+			</div>
+			<div class="modal-body" >
+				<ul ng-repeat="item in playList" >
+					<li style="width:350px; text-align:left;"><label style="width:auto">{{item.title}}&nbsp;<a ng-click="removeFromPlayList('playList', $index)">Remove</a></li>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<button ng-click="closePlayList()">Close</button>
+			</div>	
+		</div>
+		
+	</div>
+</div>
+
+</body>
+
+</html>
