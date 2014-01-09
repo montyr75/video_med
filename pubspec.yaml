@@ -1,7 +1,7 @@
 name: VideoMed
 description: Server, admin, and client apps for controlling client video playlists.
 dependencies:
-  logging: any
+  event_bus: any
   polymer: any
   route: any
 transformers:
