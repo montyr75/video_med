@@ -16,9 +16,9 @@
       <button class="btn btn-default" on-click="{{connect}}" disabled?="{{ccm.connected || ccm.connecting}}">Connect</button>
       <button class="btn btn-default" on-click="{{disconnect}}" disabled?="{{!ccm.connected || ccm.connecting}}">Disconnect</button>
 
-      <template if="{{ccm.connected}}"><img src="assets/images/connected.png" class="connection-indicator"></template>
-      <template if="{{ccm.connecting}}"><img src="assets/images/connecting.png" class="connection-indicator"></template>
-      <template if="{{!ccm.connected && !ccm.connecting}}"><img src="assets/images/disconnected.png" class="connection-indicator"></template>
+      <template if="{{ccm.connected}}"><img src="resources/images/connected.png" class="connection-indicator"></template>
+      <template if="{{ccm.connecting}}"><img src="resources/images/connecting.png" class="connection-indicator"></template>
+      <template if="{{!ccm.connected && !ccm.connecting}}"><img src="resources/images/disconnected.png" class="connection-indicator"></template>
     </div>
   </template>
 
