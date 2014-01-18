@@ -1,33 +1,38 @@
 <polymer-element name="main-view">
+  <link rel="import" href="../../../shared/views/connection_view/connection_view.html">
+
   <template>
     <style>
-      .connection-indicator {
-        width: 24px;
-        height: 24px;
+      header {
+        height: 50px;
+        background-color: black;
+      }
+
+      #app-title {
+        color: white;
+      }
+
+      main {
+
       }
 
       #video-player {
-        width: 320px;
-        height: 240px;
+        position: absolute;
+        left: 0; top: 0; right: 0; bottom: 0;
         border: 1px solid black;
       }
     </style>
 
-    <h1>VideoMed Client</h1>
+    <header class="flexbox flex-justify-space-between flex-align-center">
+      <h3 id="app-title">MedCast Client</h3>
+      <!--<connection-view></connection-view>-->
+    </header>
 
-    <video id="video-player" preload="auto" controls>
-      <source src="resources/videos/acne1.webm" type='video/webm; codecs="vp8, vorbis"' />
-    </video>
-
-    <div class="box-container">
-      <input type="text" value="{{clientID}}">
-      <button class="btn btn-default" on-click="{{connect}}" disabled?="{{ccm.connected || ccm.connecting}}">Connect</button>
-      <button class="btn btn-default" on-click="{{disconnect}}" disabled?="{{!ccm.connected || ccm.connecting}}">Disconnect</button>
-
-      <template if="{{ccm.connected}}"><img src="resources/images/connected.png" class="connection-indicator"></template>
-      <template if="{{ccm.connecting}}"><img src="resources/images/connecting.png" class="connection-indicator"></template>
-      <template if="{{!ccm.connected && !ccm.connecting}}"><img src="resources/images/disconnected.png" class="connection-indicator"></template>
-    </div>
+    <main class="flex1>
+      <video id="video-player"" preload="auto" controls>
+        <source src="resources/videos/acne1.webm" type='video/webm; codecs="vp8, vorbis"' />
+      </video>
+    </main>
   </template>
 
   <script type="application/dart" src="main_view.dart"></script>

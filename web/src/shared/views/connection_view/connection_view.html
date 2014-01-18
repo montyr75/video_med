@@ -1,0 +1,32 @@
+<polymer-element name="connection-view">
+  <template>
+    <style>
+      .connection-indicator {
+        width: 24px;
+        height: 24px;
+      }
+
+      #video-player {
+        width: 320px;
+        height: 240px;
+        border: 1px solid black;
+      }
+    </style>
+
+    <video id="video-player" preload="auto" controls>
+      <source src="resources/videos/acne1.webm" type='video/webm; codecs="vp8, vorbis"' />
+    </video>
+
+    <div class="box-container">
+      <input type="text" value="{{clientID}}">
+      <button class="btn btn-default" on-click="{{connect}}" disabled?="{{ccm.connected || ccm.connecting}}">Connect</button>
+      <button class="btn btn-default" on-click="{{disconnect}}" disabled?="{{!ccm.connected || ccm.connecting}}">Disconnect</button>
+
+      <template if="{{ccm.connected}}"><img src="resources/images/connected.png" class="connection-indicator"></template>
+      <template if="{{ccm.connecting}}"><img src="resources/images/connecting.png" class="connection-indicator"></template>
+      <template if="{{!ccm.connected && !ccm.connecting}}"><img src="resources/images/disconnected.png" class="connection-indicator"></template>
+    </div>
+  </template>
+
+  <script type="application/dart" src="connection_view.dart"></script>
+</polymer-element>
