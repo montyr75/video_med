@@ -1,6 +1,5 @@
 body {
-  background-color: #F8F8F8;
-  margin: 15px;
+  min-height: 100vh;
 }
 
 .box-container {
