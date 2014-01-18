@@ -1,5 +1,6 @@
 <polymer-element name="main-view">
   <link rel="import" href="../../../shared/views/connection_view/connection_view.html">
+  <link rel="import" href="../../../shared/views/connection_indicator_view/connection_indicator_view.html">
 
   <template>
     <style>
@@ -16,6 +17,7 @@
 
     <header class="flexbox flex-justify-space-between flex-align-center">
       <h3 id="app-title">MedCast Client</h3>
+      <connection-indicator-view connected="{{ccm.connected}}" connecting="{{ccm.connecting}}"></connection-indicator-view>
       <connection-view></connection-view>
     </header>
 

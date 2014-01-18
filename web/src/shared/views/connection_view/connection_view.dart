@@ -32,11 +32,12 @@ class ConnectionView extends PolymerElement {
   }
 
   void connect(Event event, var detail, Element target) {
-    _registerClientID();
-  }
-
-  void disconnect(Event event, var detail, Element target) {
-    ccm.disconnect();
+    if (!ccm.connected) {
+      _registerClientID();
+    }
+    else {
+      ccm.disconnect();
+    }
   }
 
   void _registerClientID([String badClientID = null]) {
@@ -45,7 +46,7 @@ class ConnectionView extends PolymerElement {
     // if badClientID is filled, we tried to register an ID already in use
     if (badClientID != null) {
       print("ConnectionView::registerClientID() -- Client ID in use");
-      // TODO: prompt user for new client ID
+      // TODO: display error to client
       return;
     }
 
