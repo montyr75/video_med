@@ -1,0 +1,23 @@
+<polymer-element name="login-view">
+  <template>
+    <style>
+      .connect-button-icon {
+        width: 15px;
+        height: 15px;
+      }
+
+      img {
+        pointer-events: none;
+      }
+    </style>
+
+    <input type="text" value="{{clientID}}" placeholder="Client ID">
+    <button class="btn btn-default" on-click="{{connect}}" disabled?="{{ccm.connecting}}">
+      <template if="{{!ccm.connected}}"><img src="resources/images/connect.png" class="connect-button-icon"></template>
+      <template if="{{ccm.connected}}"><img src="resources/images/disconnect.png" class="connect-button-icon"></template>
+    </button>
+    <!--<button class="btn btn-default" on-click="{{disconnect}}" disabled?="{{!ccm.connected || ccm.connecting}}">Disconnect</button>-->
+  </template>
+
+  <script type="application/dart" src="login_view.dart"></script>
+</polymer-element>

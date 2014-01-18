@@ -1,4 +1,4 @@
-library connection_view;
+library login_view;
 
 import 'dart:html';
 import 'dart:async';
@@ -7,10 +7,10 @@ import 'package:event_bus/event_bus.dart';
 import 'package:VideoMed/global.dart';
 import '../../../utils/client_connection_manager.dart';
 
-@CustomTag('connection-view')
-class ConnectionView extends PolymerElement {
+@CustomTag('login-view')
+class LoginView extends PolymerElement {
 
-  @observable ClientConnectionManager ccm;
+  @published ClientConnectionManager ccm;
 
   StreamSubscription<String> _connectedEventSub;
   StreamSubscription<String> _disconnectedEventSub;
@@ -19,11 +19,11 @@ class ConnectionView extends PolymerElement {
   // UI properties
   @observable String clientID = "client1";    // TODO: don't initialize this here
 
-  ConnectionView.created() : super.created();
+  LoginView.created() : super.created();
 
   @override void enteredView() {
     super.enteredView();
-    print("ConnectionView::enteredView()");
+    print("LoginView::enteredView()");
 
     // listen for events
     _connectedEventSub = eventBus.on(clientConnectedEvent).listen(_connected);
