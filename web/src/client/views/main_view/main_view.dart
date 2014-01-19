@@ -20,9 +20,9 @@ class MainView extends PolymerElement {
   void videoClicked(Event event, var detail, Element target) {
     print("MainView::videoClicked()");
 
-    videoPlayer
-      ..requestFullscreen()
-      ..play();
+//    videoPlayer
+//      ..requestFullscreen()
+//      ..play();
   }
 
   // this lets the global CSS bleed through into the Shadow DOM of this element
