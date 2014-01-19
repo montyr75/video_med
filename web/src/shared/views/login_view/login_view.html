@@ -1,4 +1,6 @@
 <polymer-element name="login-view">
+  <link rel="import" href="css_spinner.html">
+
   <template>
     <style>
       .connect-button-icon {
@@ -9,14 +11,29 @@
       img {
         pointer-events: none;
       }
+
+      .connection-indicator {
+        width: 16px;
+        height: 16px;
+      }
+
+      form {
+        width: 200px;
+      }
     </style>
 
-    <input type="text" value="{{clientID}}" placeholder="Client ID">
-    <button class="btn btn-default" on-click="{{connect}}" disabled?="{{ccm.connecting}}">
-      <template if="{{!ccm.connected}}"><img src="resources/images/connect.png" class="connect-button-icon"></template>
-      <template if="{{ccm.connected}}"><img src="resources/images/disconnect.png" class="connect-button-icon"></template>
-    </button>
-    <!--<button class="btn btn-default" on-click="{{disconnect}}" disabled?="{{!ccm.connected || ccm.connecting}}">Disconnect</button>-->
+    <form class="form-inline" on-submit="{{submit}}">
+      <div class="input-group">
+        <input id="id-input" class="form-control" type="text" value="{{clientID}}" placeholder="Client ID">
+        <span class="input-group-btn">
+          <button class="btn btn-default" on-click="{{connect}}" disabled?="{{ccm.connecting}}">
+            <template if="{{ccm.connected}}"><img src="resources/images/connected.png" class="connection-indicator"></template>
+            <template if="{{ccm.connecting}}"><css-spinner width="16" height="20" /></template>
+            <template if="{{!ccm.connected && !ccm.connecting}}"><img src="resources/images/disconnected.png" class="connection-indicator"></template>
+          </button>
+        </span>
+      </div>
+    </form>
   </template>
 
   <script type="application/dart" src="login_view.dart"></script>

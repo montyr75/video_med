@@ -10,7 +10,7 @@ import '../../../utils/client_connection_manager.dart';
 @CustomTag('login-view')
 class LoginView extends PolymerElement {
 
-  @published ClientConnectionManager ccm;
+  @observable ClientConnectionManager ccm;
 
   StreamSubscription<String> _connectedEventSub;
   StreamSubscription<String> _disconnectedEventSub;
@@ -32,12 +32,14 @@ class LoginView extends PolymerElement {
   }
 
   void connect(Event event, var detail, Element target) {
-    if (!ccm.connected) {
+    if (ccm == null || !ccm.connected) {
       _registerClientID();
     }
     else {
       ccm.disconnect();
     }
+
+    $['id-input'].focus();
   }
 
   void _registerClientID([String badClientID = null]) {
@@ -60,6 +62,10 @@ class LoginView extends PolymerElement {
 
   void _disconnected(String clientID) {
     print("ConnectionView::disconnected() -- $clientID");
+  }
+
+  void submit(Event event, var detail, Element target) {
+    event.preventDefault();
   }
 
   // this lets the global CSS bleed through into the Shadow DOM of this element
