@@ -3,6 +3,7 @@ description: Server, admin, and client apps for controlling client video playlis
 dependencies:
   event_bus: any
   polymer: any
+  polymer_elements: any
   route: any
 transformers:
 - polymer:

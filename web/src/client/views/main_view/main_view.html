@@ -1,6 +1,6 @@
 <polymer-element name="main-view">
   <link rel="import" href="../../../shared/views/login_view/login_view.html">
-  <link rel="import" href="../../../shared/views/connection_indicator_view/connection_indicator_view.html">
+  <link rel="import" href="packages/polymer_elements/polymer_collapse/polymer_collapse.html">
 
   <template>
     <style>
@@ -15,13 +15,15 @@
       }
     </style>
 
-    <header class="flexbox flex-justify-space-between flex-align-center">
+    <header id="header" class="flexbox flex-justify-space-between flex-align-center">
       <h3 id="app-title">Client</h3>
       <login-view></login-view>
     </header>
-
+    
+    <polymer-collapse id="header-collapse" fixedSize target="{{ $['header'] }}"></polymer-collapse>
+    
     <main class="flex1">
-      <video id="video-player" width="100%" height="100%" on-click="{{videoClicked}}">
+      <video id="video-player" controls width="100%" height="100%" on-play="{{toggleHeaderCollapse}}" on-pause="{{toggleHeaderCollapse}}">
         <source src="resources/videos/acne1.webm" type='video/webm; codecs="vp8, vorbis"' />
       </video>
     </main>

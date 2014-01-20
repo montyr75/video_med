@@ -16,7 +16,13 @@ class MainView extends PolymerElement {
 
     videoPlayer = $['video-player'];
   }
-
+  
+  void toggleHeaderCollapse(Event event, var detail, Element target) {
+    print("MainView::toggleHeaderCollapse()");
+    
+    $['header-collapse'].toggle();
+  }
+  
   void videoClicked(Event event, var detail, Element target) {
     print("MainView::videoClicked()");
 
