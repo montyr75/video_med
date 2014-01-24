@@ -15,13 +15,13 @@
       }
     </style>
 
-    <header id="header" class="flexbox flex-justify-space-between flex-align-center">
+    <header id="header" class="flexbox-row-nowrap flex-justify-space-between flex-align-center">
       <h3 id="app-title">Client</h3>
       <login-view></login-view>
     </header>
-    
+
     <polymer-collapse id="header-collapse" fixedSize target="{{ $['header'] }}"></polymer-collapse>
-    
+
     <main class="flex1">
       <video id="video-player" controls width="100%" height="100%" on-play="{{toggleHeaderCollapse}}" on-pause="{{toggleHeaderCollapse}}">
         <source src="resources/videos/acne1.webm" type='video/webm; codecs="vp8, vorbis"' />
