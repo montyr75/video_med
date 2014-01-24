@@ -2,9 +2,12 @@ library main_view;
 
 import 'dart:html';
 import 'package:polymer/polymer.dart';
+import '../../../utils/client_connection_manager.dart';
 
 @CustomTag('main-view')
 class MainView extends PolymerElement {
+
+  @observable ClientConnectionManager ccm = new ClientConnectionManager();
 
   VideoElement videoPlayer;
 
@@ -16,13 +19,13 @@ class MainView extends PolymerElement {
 
     videoPlayer = $['video-player'];
   }
-  
+
   void toggleHeaderCollapse(Event event, var detail, Element target) {
     print("MainView::toggleHeaderCollapse()");
-    
+
     $['header-collapse'].toggle();
   }
-  
+
   void videoClicked(Event event, var detail, Element target) {
     print("MainView::videoClicked()");
 

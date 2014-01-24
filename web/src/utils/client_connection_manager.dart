@@ -4,26 +4,35 @@ import 'dart:html';
 import 'dart:async';
 import 'dart:convert';
 import 'package:polymer/polymer.dart';
-import 'package:VideoMed/global.dart';
 import 'package:VideoMed/message.dart';
 
 class ClientConnectionManager extends Object with Observable {
   String _clientID;
-//  String _wsURL = "ws://${Uri.base.host}:$PORT/ws";   // this one will work in production
-  String _wsURL = "ws://${SERVER_IP}:$SERVER_PORT/ws";
+  String _wsURL;
   WebSocket _webSocket;
+
+  // event streams
+  StreamController _onConnect = new StreamController.broadcast();
+  StreamController _onDisconnect = new StreamController.broadcast();
 
   @observable bool connecting = false;
   @observable bool connected = false;
 
   bool connectionPending = false;
 
-  ClientConnectionManager(this._clientID) {
-    _connectToServer();
-  }
+  ClientConnectionManager();
 
-  void _connectToServer() {
-    print("ClientConnectionManager:: connecting on: $_wsURL");
+  void connectToServer(clientID, serverIP, serverPort) {
+    // reset status properties
+    connecting = false;
+    connected = false;
+    connectionPending = false;
+
+    _clientID = clientID;
+    _wsURL = "ws://$serverIP:$serverPort/ws";
+
+    print("ClientConnectionManager:: connecting $_clientID on $_wsURL");
+
     connecting = true;
 
     _webSocket = new WebSocket(_wsURL);
@@ -41,6 +50,7 @@ class ClientConnectionManager extends Object with Observable {
         _disconnected();
       });
 
+      // set status properties
       connecting = false;
       connected = true;
       connectionPending = false;
@@ -50,8 +60,7 @@ class ClientConnectionManager extends Object with Observable {
     });
 
     _webSocket.onError.first.then((_) {
-      print("ClientConnectionManager:: connection error on: ${_webSocket.url}");
-
+      _onConnect.addError(new StateError("Error connecting to server at ${_webSocket.url}"));
       _disconnected();
     });
   }
@@ -62,13 +71,13 @@ class ClientConnectionManager extends Object with Observable {
     print("ClientConnectionManager::_messageReceived():\n${message}");
 
     switch (message.type) {
-      case Message.CLIENT_ID_REG_ACK: eventBus.fire(clientConnectedEvent, message.msg); break;
-      case Message.CLIENT_ID_IN_USE: eventBus.fire(clientIDInUseEvent, message.msg); break;
+      case Message.CLIENT_ID_REG_ACK: _onConnect.add(message.msg); break;
+      case Message.CLIENT_ID_IN_USE: _onConnect.addError(new StateError("Client ID in use: ${message.msg}")); disconnect(); break;
     }
   }
 
   void _disconnected() {
-    // if this is already being handled, don't repeat the connection retry
+    // if this is already being handled, don't repeat the onDisconnect event
     if (connectionPending) {
       return;
     }
@@ -77,7 +86,7 @@ class ClientConnectionManager extends Object with Observable {
     connected = false;
     connectionPending = true;
 
-    eventBus.fire(clientDisconnectedEvent, _clientID);
+    _onDisconnect.add(_clientID);
   }
 
   void sendMessage(Message msg) {
@@ -89,5 +98,8 @@ class ClientConnectionManager extends Object with Observable {
   }
 
   String get clientID => _clientID;
+
+  Stream<String> get onConnect => _onConnect.stream;
+  Stream<String> get onDisconnect => _onDisconnect.stream;
 }
 

@@ -13,14 +13,10 @@ import 'utils/client_manager.dart';
 ClientManager clients = new ClientManager();
 
 void main() {
-  // look up the IP of the server host, then start the WebSocket server using it
-  InternetAddress.lookup(SERVER_HOST, type: InternetAddressType.IP_V4)
-    .then((List<InternetAddress> ipList) {
-      startServer(ipList.first, SERVER_PORT);
-    });
+  startServer(SERVER_IP, SERVER_PORT);
 }
 
-void startServer(InternetAddress ip, int port) {
+void startServer(String ip, int port) {
   HttpServer.bind(ip, port).then((HttpServer server) {
     Router router = new Router(server);
 

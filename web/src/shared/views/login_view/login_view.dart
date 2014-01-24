@@ -3,18 +3,13 @@ library login_view;
 import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
-import 'package:event_bus/event_bus.dart';
 import 'package:VideoMed/global.dart';
 import '../../../utils/client_connection_manager.dart';
 
 @CustomTag('login-view')
 class LoginView extends PolymerElement {
 
-  @observable ClientConnectionManager ccm;
-
-  StreamSubscription<String> _connectedEventSub;
-  StreamSubscription<String> _disconnectedEventSub;
-  StreamSubscription<String> _clientIDInUseEventSub;
+  @published ClientConnectionManager ccm;
 
   // UI properties
   @observable String clientID = "client1";    // TODO: don't initialize this here
@@ -26,9 +21,8 @@ class LoginView extends PolymerElement {
     print("LoginView::enteredView()");
 
     // listen for events
-    _connectedEventSub = eventBus.on(clientConnectedEvent).listen(_connected);
-    _disconnectedEventSub = eventBus.on(clientDisconnectedEvent).listen(_disconnected);
-    _clientIDInUseEventSub = eventBus.on(clientIDInUseEvent).listen(_registerClientID);
+    ccm.onConnect.listen(_connected, onError: _connectionError);
+    ccm.onDisconnect.listen(_disconnected);
   }
 
   void connect(Event event, var detail, Element target) {
@@ -45,15 +39,11 @@ class LoginView extends PolymerElement {
   void _registerClientID([String badClientID = null]) {
     print("ConnectionView::registerClientID() -- $clientID");
 
-    // if badClientID is filled, we tried to register an ID already in use
-    if (badClientID != null) {
-      print("ConnectionView::registerClientID() -- Client ID in use");
-      // TODO: display error to client
-      return;
-    }
+    // connect and register client ID with server
+    ccm.connectToServer(clientID, SERVER_IP, SERVER_PORT);
 
-    // create connection manager and register client ID with server
-    ccm = new ClientConnectionManager(clientID);
+    // if server and client host have the same IP, we can use this
+    //ccm.connectToServer(clientID, Uri.base.host, SERVER_PORT);
   }
 
   void _connected(String clientID) {
@@ -62,6 +52,14 @@ class LoginView extends PolymerElement {
 
   void _disconnected(String clientID) {
     print("ConnectionView::disconnected() -- $clientID");
+
+    // TODO: display status to user
+  }
+
+  void _connectionError(StateError error) {
+    print("ConnectionView::connectionError() -- ${error.message}");
+
+    // TODO: display error to user
   }
 
   void submit(Event event, var detail, Element target) {

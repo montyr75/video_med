@@ -15,9 +15,9 @@
       }
     </style>
 
-    <header id="header" class="flexbox-row-nowrap flex-justify-space-between flex-align-center">
+    <header id="header" class="flexbox-row-nowrap flex-justify-space-between flex-align-items-center">
       <h3 id="app-title">Client</h3>
-      <login-view></login-view>
+      <login-view ccm={{ccm}}></login-view>
     </header>
 
     <polymer-collapse id="header-collapse" fixedSize target="{{ $['header'] }}"></polymer-collapse>
