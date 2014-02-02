@@ -1,9 +1,10 @@
-library vmserver;
+library wsserver;
 
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:args/args.dart';
 import 'package:route/server.dart' show Router;
 import 'package:VideoMed/global.dart';
 import 'package:VideoMed/message.dart';
@@ -12,8 +13,17 @@ import 'utils/client_manager.dart';
 
 ClientManager clients = new ClientManager();
 
-void main() {
-  startServer(SERVER_IP, SERVER_PORT);
+void main(List<String> arguments) {
+  ArgParser parser = new ArgParser()
+    ..addOption('ip', defaultsTo: SERVER_IP)
+    ..addOption('port', defaultsTo: SERVER_PORT.toString());
+
+  ArgResults results = parser.parse(arguments);
+
+  startServer(results['ip'], int.parse(results['port'], onError:(_) {
+    print("Error: Invalid port");
+    exit(1);
+  }));
 }
 
 void startServer(String ip, int port) {
@@ -24,7 +34,7 @@ void startServer(String ip, int port) {
       .transform(new WebSocketTransformer())
       .listen(handleNewWebSocketConnection);
 
-    print("VMServer is running on http://${server.address.address}:$port/");
+    print("Server is running on http://${server.address.address}:$port/");
   });
 }
 
