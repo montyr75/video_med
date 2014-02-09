@@ -23,8 +23,8 @@
     <polymer-collapse id="header-collapse" fixedSize target="{{ $['header'] }}"></polymer-collapse>
 
     <main class="flex1">
-      <video id="video-player" controls width="100%" height="100%" on-play="{{toggleHeaderCollapse}}" on-pause="{{toggleHeaderCollapse}}">
-        <source src="resources/videos/acne1.webm" type='video/webm; codecs="vp8, vorbis"' />
+      <video id="video-player" width="100%" height="100%" on-click="{{videoClicked}}" on-ended="{{playNextVideo}}">
+        <!--source src="resources/videos/bunny.webm" type='video/webm; codecs="vp8, vorbis"' /-->
       </video>
     </main>
   </template>

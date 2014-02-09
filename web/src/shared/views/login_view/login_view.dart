@@ -19,6 +19,12 @@ class LoginView extends PolymerElement {
   @override void enteredView() {
     super.enteredView();
     print("LoginView::enteredView()");
+  }
+
+  void ccmChanged(oldValue) {
+    if (ccm == null) {
+      return;
+    }
 
     // listen for events
     ccm.onConnect.listen(_connected, onError: _connectionError);

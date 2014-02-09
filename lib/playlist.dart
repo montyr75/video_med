@@ -45,7 +45,7 @@ class Playlist {
       "id": id,
       "title": title,
       "description": description,
-      "media": media.map((Media media) => media.toMap())
+      "media": media.map((Media media) => media.toMap()).toList(growable: false)
     };
   }
 
