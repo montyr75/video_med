@@ -1,6 +1,7 @@
 library main_view;
 
 import 'dart:html';
+import 'dart:async';
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/polymer_collapse/polymer_collapse.dart';
 import 'package:VideoMed/global.dart';
@@ -27,8 +28,10 @@ class MainView extends PolymerElement {
     print("MainView::enteredView()");
 
     // get UI element references
-    videoPlayer = $['video-player'];
-    headerCollapse = $['header-collapse'];
+    Timer.run(() {
+      videoPlayer = $['video-player'];
+      headerCollapse = $['header-collapse'];
+    });
   }
 
   void videoClicked(Event event, var detail, Element target) {
