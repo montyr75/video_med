@@ -13,6 +13,8 @@ class Media {
   String description;
   String filename;
   String runtime;
+  String version;
+  String language;
 
   Media();
 
@@ -24,6 +26,8 @@ class Media {
     description = map["description"];
     filename = map["filename"];
     runtime = map["runtime"];
+    version = map["version"];
+    language = map["language"];
   }
 
   Map<String, String> toMap() {
@@ -34,7 +38,9 @@ class Media {
       "title": title,
       "description": description,
       "filename": filename,
-      "runtime": runtime
+      "runtime": runtime,
+      "version": version,
+      "language": language
     };
   }
 
