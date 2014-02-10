@@ -1,5 +1,6 @@
 <polymer-element name="login-view">
   <link rel="import" href="css_spinner.html">
+  <link rel="import" href="packages/polymer_elements/polymer_localstorage/polymer_localstorage.html">
 
   <template>
     <style>
@@ -34,6 +35,8 @@
         </span>
       </div>
     </form>
+
+    <polymer-localstorage name="clientID" value="{{clientID}}" />
   </template>
 
   <script type="application/dart" src="login_view.dart"></script>

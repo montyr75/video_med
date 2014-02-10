@@ -11,7 +11,7 @@ class LoginView extends PolymerElement {
   @published ClientConnectionManager ccm;
 
   // UI properties
-  @observable String clientID = "client1";    // TODO: don't initialize this here
+  @observable String clientID;    // ID persists into local storage automatically
 
   LoginView.created() : super.created();
 
