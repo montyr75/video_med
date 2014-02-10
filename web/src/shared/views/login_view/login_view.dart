@@ -1,7 +1,6 @@
 library login_view;
 
 import 'dart:html';
-import 'dart:async';
 import 'package:polymer/polymer.dart';
 import 'package:VideoMed/global.dart';
 import '../../../utils/client_connection_manager.dart';
