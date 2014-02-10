@@ -105,7 +105,9 @@ void sendCurrentPlaylist(String clientID) {
         "title": "Small",
         "description": "A small sample video.",
         "filename": "small.webm",
-        "runtime": "00:05"
+        "runtime": "00:05",
+        "version": "1.0",
+        "language": "en-US"
       },
       {
         "id": "002",
@@ -114,7 +116,9 @@ void sendCurrentPlaylist(String clientID) {
         "title": "Bunny",
         "description": "A larger sample video.",
         "filename": "bunny.webm",
-        "runtime": "00:32"
+        "runtime": "00:32",
+        "version": "1.0",
+        "language": "en-US"
       }
     ]
   });
