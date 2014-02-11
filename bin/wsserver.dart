@@ -30,6 +30,8 @@ void main(List<String> arguments) {
 }
 
 void startServer(String ip, int port) {
+  // TODO: use InternetAddress class to obtain IP via DNS lookup
+
   HttpServer.bind(ip, port).then((HttpServer server) {
     Router router = new Router(server);
 

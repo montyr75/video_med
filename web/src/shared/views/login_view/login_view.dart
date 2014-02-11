@@ -47,7 +47,7 @@ class LoginView extends PolymerElement {
     // connect and register client ID with server
     ccm.connectToServer(clientID, SERVER_IP, SERVER_PORT);
 
-    // if server and client host have the same IP, we can use this
+    // TODO: if server and client host have the same IP, we can use this (we probably want this for production)
     //ccm.connectToServer(clientID, Uri.base.host, SERVER_PORT);
   }
 
