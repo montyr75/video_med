@@ -9,9 +9,9 @@ import 'package:VideoMed/global.dart';
 import 'package:VideoMed/message.dart';
 import 'package:VideoMed/playlist.dart';
 
-import 'utils/client_manager.dart';
+import 'model/model.dart';
 
-ClientManager clients = new ClientManager();
+Model model;
 
 void main(List<String> arguments) {
   // set up argument parser (defaults in global.dart)
@@ -21,6 +21,8 @@ void main(List<String> arguments) {
 
   // parse the command-line arguments
   ArgResults results = parser.parse(arguments);
+  
+  model = new Model();
 
   // start WebSocket server
   startServer(results['ip'], int.parse(results['port'], onError:(_) {
@@ -73,7 +75,7 @@ void registerClientID(String clientID, WebSocket ws) {
   print("Registering client: $clientID");
 
   // if the add fails, the ID is already in use
-  if (!clients.add(clientID, ws)) {
+  if (model.clientConnected(clientID, ws) == null) {
     print("Client ID in use: $clientID");
     sendMessage(ws, Message.CLIENT_ID_IN_USE, clientID);
     return;
@@ -88,7 +90,7 @@ void registerClientID(String clientID, WebSocket ws) {
 
 void connectionClosed(WebSocket ws) {
   // if the ID is found in the client list, it will be unregistered and returned here
-  String clientID = clients.remove(ws);
+  String clientID = model.clientDisconnected(ws);
 
   print("WebSocket connection closed: $clientID");
 }
@@ -124,5 +126,5 @@ void sendCurrentPlaylist(String clientID) {
     ]
   });
 
-  sendMessage(clients[clientID], Message.PLAYLIST, pl);
+  sendMessage(model[clientID].ws, Message.PLAYLIST, pl);
 }
