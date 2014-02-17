@@ -10,8 +10,10 @@ import 'package:VideoMed/message.dart';
 import 'package:VideoMed/playlist.dart';
 
 import 'model/model.dart';
+import 'utils/server_connection_manager.dart';
 
 Model model;
+ServerConnectionManager scm = new ServerConnectionManager();
 
 void main(List<String> arguments) {
   // set up argument parser (defaults in global.dart)
@@ -21,7 +23,7 @@ void main(List<String> arguments) {
 
   // parse the command-line arguments
   ArgResults results = parser.parse(arguments);
-  
+
   model = new Model();
 
   // start WebSocket server
@@ -62,9 +64,9 @@ void handleNewWebSocketConnection(WebSocket ws) {
 }
 
 void sendMessage(WebSocket ws, String msgType, msgContent) {
-  // anything but a simple String needs to be JSON encoded
+  // anything but a simple String needs to be JSON encoded and should have a toMessageMap() method
   if (msgContent is! String) {
-    msgContent = JSON.encode(msgContent.toMap());
+    msgContent = JSON.encode(msgContent.toMessageMap());
   }
 
   // a clientID of null indicates the message originates from the server
@@ -75,56 +77,30 @@ void registerClientID(String clientID, WebSocket ws) {
   print("Registering client: $clientID");
 
   // if the add fails, the ID is already in use
-  if (model.clientConnected(clientID, ws) == null) {
+  if (!scm.add(clientID, ws)) {
     print("Client ID in use: $clientID");
     sendMessage(ws, Message.CLIENT_ID_IN_USE, clientID);
+    ws.close();
     return;
   }
 
   sendMessage(ws, Message.CLIENT_ID_REG_ACK, clientID);
 
-  // TODO: Here, we look up the clientID in the persisted client data, and if there is a
-  // playlist assigned, we send it
-  sendCurrentPlaylist(clientID);
+  sendClientPlaylist(clientID);
 }
 
 void connectionClosed(WebSocket ws) {
   // if the ID is found in the client list, it will be unregistered and returned here
-  String clientID = model.clientDisconnected(ws);
+  String clientID = scm.remove(ws);
 
   print("WebSocket connection closed: $clientID");
 }
 
-void sendCurrentPlaylist(String clientID) {
-  Playlist pl = new Playlist.fromMap({
-    "id": "000",
-    "title": "Sample Playlist",
-    "description": "A sample playlist.",
-    "media": [
-      {
-        "id": "001",
-        "category": "Sample Category",
-        "type": "video",
-        "title": "Small",
-        "description": "A small sample video.",
-        "filename": "small.webm",
-        "runtime": "00:05",
-        "version": "1.0",
-        "language": "en-US"
-      },
-      {
-        "id": "002",
-        "category": "Sample Category",
-        "type": "video",
-        "title": "Bunny",
-        "description": "A larger sample video.",
-        "filename": "bunny.webm",
-        "runtime": "00:32",
-        "version": "1.0",
-        "language": "en-US"
-      }
-    ]
-  });
+void sendClientPlaylist(String clientID) {
+  Playlist pl = model.getClientPlaylist(clientID);
 
-  sendMessage(model[clientID].ws, Message.PLAYLIST, pl);
+  // if the client has an assigned playlist, send it
+  if (pl != null) {
+    sendMessage(scm[clientID], Message.PLAYLIST, pl);
+  }
 }

@@ -1,0 +1,11 @@
+{
+  "Sample Playlist": {
+    "id": "000",
+    "title": "Sample Playlist",
+    "description": "A sample playlist.",
+    "mediaNames": [
+      "Small",
+      "Bunny"
+    ]
+  }
+}

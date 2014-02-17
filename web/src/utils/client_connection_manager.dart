@@ -74,8 +74,8 @@ class ClientConnectionManager extends Object with Observable {
 
     switch (message.type) {
       case Message.CLIENT_ID_REG_ACK: _onConnect.add(message.msg); break;
-      case Message.CLIENT_ID_IN_USE: _onConnect.addError(new StateError("Client ID in use: ${message.msg}")); disconnect(); break;
-      case Message.PLAYLIST: _onPlaylist.add(new Playlist.fromMap(JSON.decode(message.msg))); break;
+      case Message.CLIENT_ID_IN_USE: _onConnect.addError(new StateError("Client ID in use: ${message.msg}")); break;
+      case Message.PLAYLIST: _onPlaylist.add(new Playlist.fromMessageMap(JSON.decode(message.msg))); break;
     }
   }
 

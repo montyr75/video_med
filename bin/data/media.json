@@ -1,0 +1,24 @@
+{
+  "Small": {
+    "id": "001",
+    "category": "Sample Category",
+    "type": "video",
+    "title": "Small",
+    "description": "A small sample video.",
+    "filename": "small.webm",
+    "runtime": "00:05",
+    "version": "1.0",
+    "language": "en-US"
+  },
+  "Bunny": {
+    "id": "002",
+    "category": "Sample Category",
+    "type": "video",
+    "title": "Bunny",
+    "description": "A larger sample video.",
+    "filename": "bunny.webm",
+    "runtime": "00:32",
+    "version": "1.0",
+    "language": "en-US"
+  }
+}

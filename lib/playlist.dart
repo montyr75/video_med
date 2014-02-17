@@ -6,19 +6,29 @@ class Playlist {
   String id;
   String title;
   String description;
-  List<Media> media = [];
+  List<Media> media = [];     // this only needs to be filled out for clients
+  List<String> mediaNames;
 
   Iterator iterator;
 
   Playlist();
 
-  Playlist.fromMap(Map map) {
-    id = map["id"];
-    title = map["title"];
-    description = map["description"];
+  Playlist.fromDBMap(Map map) {
+    _fromMap(map);
+    mediaNames = map["mediaNames"];
+  }
+
+  Playlist.fromMessageMap(Map map) {
+    _fromMap(map);
     map["media"].forEach((Map mediaMap) => media.add(new Media.fromMap(mediaMap)));
 
     reset();
+  }
+
+  void _fromMap(Map map) {
+    id = map["id"];
+    title = map["title"];
+    description = map["description"];
   }
 
   bool reset() {
@@ -40,13 +50,32 @@ class Playlist {
     return reset() ? next() : null;
   }
 
-  Map toMap() {
+  Map _toMap() {
     return {
       "id": id,
       "title": title,
-      "description": description,
+      "description": description
+    };
+  }
+
+  Map toDBMap() {
+    Map map = {
+      "mediaNames": mediaNames
+    };
+
+    map.addAll(_toMap());
+
+    return map;
+  }
+
+  Map toMessageMap() {
+    Map map = {
       "media": media.map((Media media) => media.toMap()).toList(growable: false)
     };
+
+    map.addAll(_toMap());
+
+    return map;
   }
 
   @override String toString() => "$id: $title :: $media";
