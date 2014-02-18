@@ -86,7 +86,8 @@ void registerClientID(String clientID, WebSocket ws) {
 
   sendMessage(ws, Message.CLIENT_ID_REG_ACK, clientID);
 
-  sendClientPlaylist(clientID);
+  // TODO: remove this debug code (admin will normally assign playlists to clients)
+  sendClientPlaylist(clientID, model.assignClientPlaylist(clientID, "Sample Playlist"));
 }
 
 void connectionClosed(WebSocket ws) {
@@ -96,10 +97,8 @@ void connectionClosed(WebSocket ws) {
   print("WebSocket connection closed: $clientID");
 }
 
-void sendClientPlaylist(String clientID) {
-  Playlist pl = model.getClientPlaylist(clientID);
-
-  // if the client has an assigned playlist, send it
+void sendClientPlaylist(String clientID, Playlist pl) {
+  // if the playlist is good, send it
   if (pl != null) {
     sendMessage(scm[clientID], Message.PLAYLIST, pl);
   }

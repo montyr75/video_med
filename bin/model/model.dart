@@ -18,10 +18,11 @@ class Model {
   File playlistsFile = new File(PLAYLISTS_FILE_PATH);
   File clientPlaylistsFile = new File(CLIENT_PLAYLISTS_FILE_PATH);
 
-  // model collections
+  // db collections
   Map<String, Media> media = {};              // all available media
   Map<String, Playlist> playlists = {};       // all created playlists
-  Map<String, String> _clientPlaylists;       // client playlist assignments
+
+  Map<String, String> _clientPlaylists = {};  // client playlist assignments
 
   Model() {
     print("Model()");
@@ -32,13 +33,11 @@ class Model {
   void loadAll() {
     loadMediaFile();
     loadPlaylistsFile();
-    loadClientPlaylistsFile();
   }
 
   void saveAll() {
     saveMediaFile();
     savePlaylistsFile();
-    saveClientPlaylistsFile();
   }
 
   void loadMediaFile() {
@@ -75,20 +74,12 @@ class Model {
     playlistsFile.writeAsStringSync(JSON.encode(maps));
   }
 
-  void loadClientPlaylistsFile() {
-    // if file exists, read it in and restore the data -- otherwise, start with an empty map
-    _clientPlaylists = clientPlaylistsFile.existsSync() ? JSON.decode(clientPlaylistsFile.readAsStringSync()) : {};
-  }
+  Playlist assignClientPlaylist(String clientID, String playlistName) {
+    _clientPlaylists[clientID] = playlistName;
 
-  void saveClientPlaylistsFile() {
-    // create or overwrite file with current data
-    clientPlaylistsFile.writeAsStringSync(JSON.encode(_clientPlaylists));
-  }
-
-  Playlist getClientPlaylist(String clientID) {
-    // if the client has an assigned playlist and that playlist exists, return it with its media List filled out
-    if (_clientPlaylists.containsKey(clientID) && playlists[_clientPlaylists[clientID]] != null) {
-      Playlist pl = playlists[_clientPlaylists[clientID]];
+    // if the playlist exists, return it with its media List filled out
+    if (playlists[playlistName] != null) {
+      Playlist pl = playlists[playlistName];
       pl.media = pl.mediaNames.map((String name) => media[name]).toList(growable: false);
       return pl;
     }
