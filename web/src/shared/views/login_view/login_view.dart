@@ -70,8 +70,5 @@ class LoginView extends PolymerElement {
   void submit(Event event, var detail, Element target) {
     event.preventDefault();
   }
-
-  // this lets the global CSS bleed through into the Shadow DOM of this element
-  bool get applyAuthorStyles => true;
 }
 
