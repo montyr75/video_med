@@ -1,0 +1,50 @@
+<polymer-element name="main-view">
+  <link rel="import" href="../../../shared/views/login_view/login_view.html">
+
+  <template>
+    <style>
+      @import "resources/css/app.css";
+
+      .panel {
+        margin: 5px;
+      }
+    </style>
+
+    <header id="header" class="flexbox-row-nowrap flex-justify-space-between flex-align-items-center">
+      <h3 id="app-title">Admin</h3>
+      <login-view ccm="{{ccm}}" admin="true"></login-view>
+    </header>
+
+    <main class="flexbox-column-nowrap flex-justify-space-around flex1">
+      <div class="panel panel-default flex1">
+        <div class="panel-heading">
+          Playlists
+        </div>
+
+        <div class="panel-body">
+          <ul>
+            <template repeat="{{playlist in model.playlists}}">
+              <li>{{playlist.title}}</li>
+            </template>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel panel-default flex1">
+        <div class="panel-heading">
+          Media
+        </div>
+
+        <div class="panel-body">
+          <ul>
+            <template repeat="{{unit in model.media}}">
+              <li>{{unit.title}}</li>
+            </template>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </template>
+
+  <script type="application/dart" src="main_view.dart"></script>
+</polymer-element>

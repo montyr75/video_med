@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:polymer/polymer.dart';
 import 'package:VideoMed/message.dart';
 import 'package:VideoMed/playlist.dart';
+import '../admin/model/model.dart';
 
 class ClientConnectionManager extends Object with Observable {
   String _clientID;
@@ -16,6 +17,7 @@ class ClientConnectionManager extends Object with Observable {
   StreamController _onConnect = new StreamController.broadcast();
   StreamController _onDisconnect = new StreamController.broadcast();
   StreamController _onPlaylist = new StreamController.broadcast();
+  StreamController _onModel = new StreamController.broadcast();
 
   @observable bool connecting = false;
   @observable bool connected = false;
@@ -76,6 +78,7 @@ class ClientConnectionManager extends Object with Observable {
       case Message.CLIENT_ID_REG_ACK: _onConnect.add(message.msg); break;
       case Message.CLIENT_ID_IN_USE: _onConnect.addError(new StateError("Client ID in use: ${message.msg}")); break;
       case Message.PLAYLIST: _onPlaylist.add(new Playlist.fromMessageMap(JSON.decode(message.msg))); break;
+      case Message.MODEL: _onModel.add(new Model.fromServerMap(JSON.decode(message.msg))); break;
     }
   }
 
@@ -102,8 +105,10 @@ class ClientConnectionManager extends Object with Observable {
 
   String get clientID => _clientID;
 
+  // event streams
   Stream<String> get onConnect => _onConnect.stream;
   Stream<String> get onDisconnect => _onDisconnect.stream;
   Stream<Playlist> get onPlaylist => _onPlaylist.stream;
+  Stream<Model> get onModel => _onModel.stream;
 }
 

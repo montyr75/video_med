@@ -8,7 +8,7 @@ import 'package:VideoMed/playlist.dart';
 
 class Model {
 
-  // db files paths
+  // db file paths
   static const MEDIA_FILE_PATH = "data/media.json";
   static const PLAYLISTS_FILE_PATH = "data/playlists.json";
   static const CLIENT_PLAYLISTS_FILE_PATH = "data/client_playlists.json";
@@ -25,8 +25,6 @@ class Model {
   Map<String, String> _clientPlaylists = {};  // client playlist assignments
 
   Model() {
-    print("Model()");
-
     loadAll();
   }
 
@@ -49,12 +47,8 @@ class Model {
   }
 
   void saveMediaFile() {
-    // create Media maps
-    Map maps = {};
-    media.forEach((String key, Media value) => maps[key] = value.toMap());
-
     // create or overwrite file with current data
-    mediaFile.writeAsStringSync(JSON.encode(maps));
+    mediaFile.writeAsStringSync(JSON.encode(_getMediaMaps()));
   }
 
   void loadPlaylistsFile() {
@@ -66,12 +60,8 @@ class Model {
   }
 
   void savePlaylistsFile() {
-    // create Media maps
-    Map maps = {};
-    playlists.forEach((String key, Playlist value) => maps[key] = value.toDBMap());
-
     // create or overwrite file with current data
-    playlistsFile.writeAsStringSync(JSON.encode(maps));
+    playlistsFile.writeAsStringSync(JSON.encode(_getPlaylistMaps()));
   }
 
   Playlist assignClientPlaylist(String clientID, String playlistName) {
@@ -85,5 +75,27 @@ class Model {
     }
 
     return null;
+  }
+
+  Map _getMediaMaps() {
+    // create Media maps
+    Map maps = {};
+    media.forEach((String key, Media value) => maps[key] = value.toMap());
+    return maps;
+  }
+
+  Map _getPlaylistMaps() {
+    // create Playlist maps
+    Map maps = {};
+    playlists.forEach((String key, Playlist value) => maps[key] = value.toDBMap());
+    return maps;
+  }
+
+  Map toAdminModelMap() {
+    return {
+      "media": _getMediaMaps(),
+      "playlists": _getPlaylistMaps(),
+      "clientPlaylists": _clientPlaylists
+    };
   }
 }

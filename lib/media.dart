@@ -1,20 +1,22 @@
 library media;
 
-class Media {
+import 'package:polymer/polymer.dart';
+
+class Media extends Object with Observable {
   // media types
   static const String IMAGE = "image";
   static const String AUDIO = "audio";
   static const String VIDEO = "video";
 
-  String id;
-  String category;
-  String type;
-  String title;
-  String description;
-  String filename;
-  String runtime;
-  String version;
-  String language;
+  @observable String id;
+  @observable String category;
+  @observable String type;
+  @observable String title;
+  @observable String description;
+  @observable String filename;
+  @observable String runtime;
+  @observable String version;
+  @observable String language;
 
   Media();
 

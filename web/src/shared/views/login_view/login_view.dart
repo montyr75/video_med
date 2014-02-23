@@ -9,15 +9,21 @@ import '../../../utils/client_connection_manager.dart';
 class LoginView extends PolymerElement {
 
   @published ClientConnectionManager ccm;
+  @published bool admin = false;
 
   // UI properties
-  @observable String clientID;    // ID persists into local storage automatically
+  @observable String clientID;    // for clients, ID persists into local storage automatically
 
   LoginView.created() : super.created();
 
   @override void enteredView() {
     super.enteredView();
     print("LoginView::enteredView()");
+
+    // use standard admin ID from global.dart if the "client" is the admin
+    if (admin) {
+      clientID = ADMIN_ID;
+    }
   }
 
   void ccmChanged(oldValue) {
@@ -38,7 +44,11 @@ class LoginView extends PolymerElement {
       ccm.disconnect();
     }
 
-    $['id-input'].focus();
+    // the input is not present for admin login
+    InputElement idInput = $['id-input'];
+    if (idInput != null) {
+      idInput.focus();
+    }
   }
 
   void _registerClientID([String badClientID = null]) {

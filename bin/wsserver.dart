@@ -69,7 +69,7 @@ void sendMessage(WebSocket ws, String msgType, msgContent) {
     msgContent = JSON.encode(msgContent.toMessageMap());
   }
 
-  // a clientID of null indicates the message originates from the server
+  // a sender ID of null indicates the message originates from the server
   ws.add(JSON.encode(new Message(null, msgType, msgContent).toMap()));
 }
 
@@ -86,8 +86,13 @@ void registerClientID(String clientID, WebSocket ws) {
 
   sendMessage(ws, Message.CLIENT_ID_REG_ACK, clientID);
 
-  // TODO: remove this debug code (admin will normally assign playlists to clients)
-  sendClientPlaylist(clientID, model.assignClientPlaylist(clientID, "Sample Playlist"));
+  if (clientID == ADMIN_ID) {
+    sendMessage(scm[ADMIN_ID], Message.MODEL, JSON.encode(model.toAdminModelMap()));
+  }
+  else {
+    // TODO: remove this debug code (admin will normally assign playlists to clients)
+    sendClientPlaylist(clientID, model.assignClientPlaylist(clientID, "Sample Playlist"));
+  }
 }
 
 void connectionClosed(WebSocket ws) {

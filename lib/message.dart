@@ -6,6 +6,7 @@ class Message {
   static const String CLIENT_ID_REG_ACK = "client id reg ack";    // server acknowledges client ID registration (msg: clientID)
   static const String CLIENT_ID_IN_USE = "client id in use";      // server rejects ID registration because it's in use (msg: rejected clientID)
   static const String PLAYLIST = "playlist";                      // the playlist that the client should use
+  static const String MODEL = "model";                            // the full server model for the admin to manipulate
 
   String senderID;    // sender ID: null indicates server
   String type;

@@ -1,13 +1,14 @@
 library playlist;
 
 import "media.dart";
+import 'package:polymer/polymer.dart';
 
-class Playlist {
-  String id;
-  String title;
-  String description;
+class Playlist extends Object with Observable {
+  @observable String id;
+  @observable String title;
+  @observable String description;
+  @observable List<String> mediaNames;
   List<Media> media = [];     // this only needs to be filled out for clients
-  List<String> mediaNames;
 
   Iterator iterator;
 
@@ -15,7 +16,7 @@ class Playlist {
 
   Playlist.fromDBMap(Map map) {
     _fromMap(map);
-    mediaNames = map["mediaNames"];
+    mediaNames = toObservable(map["mediaNames"]);
   }
 
   Playlist.fromMessageMap(Map map) {

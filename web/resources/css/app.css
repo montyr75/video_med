@@ -30,3 +30,13 @@ img {
   -webkit-user-drag: none;
   user-drag: none;
 }
+
+header {
+  height: 45px;
+  background-color: black;
+  padding: 0 10px 0 10px;
+}
+
+#app-title {
+  color: white;
+}
