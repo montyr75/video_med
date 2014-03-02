@@ -11,6 +11,7 @@ class Model extends Object with Observable {
   @observable List<Playlist> playlists = toObservable([]);       // all created playlists
 
   @observable Map<String, String> _clientPlaylists = toObservable({});  // client playlist assignments
+  @observable List<String> categories = toObservable(["All"]);       // all media categories
 
   Model();
 
@@ -25,5 +26,12 @@ class Model extends Object with Observable {
 
     // decode client playlist assignments
     _clientPlaylists = map["clientPlaylists"] != null ? map["clientPlaylists"] : {};
+
+    // get list of categories from Media objects
+    media.forEach((Media item) {
+      if (!categories.contains(item.category)) {
+        categories.add(item.category);
+      }
+    });
   }
 }

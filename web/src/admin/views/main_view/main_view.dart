@@ -3,6 +3,7 @@ library main_view;
 import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
+import 'package:polymer_elements/polymer_elements.dart';
 import 'package:polymer_elements/polymer_collapse/polymer_collapse.dart';
 import 'package:VideoMed/global.dart';
 import 'package:VideoMed/playlist.dart';
@@ -26,14 +27,17 @@ class MainView extends PolymerElement {
     print("MainView::enteredView()");
   }
 
-  void sampleEventHandler(Event event, var detail, Element target) {
-    print("MainView::sampleEventHandler()");
+  void categorySelected(Event event, var detail, Element target) {
+    print("MainView::categorySelected()");
   }
 
   void newModelReceived(Model newModel) {
     print("MainView::newModelReceived()");
 
     model = newModel;
+
+    // select "All" categories
+    ($["category-selector"] as PolymerSelector).selected = 0;
   }
 }
 

@@ -1,7 +1,7 @@
 library playlist;
 
 import "media.dart";
-import 'package:polymer/polymer.dart';
+import 'package:observe/observe.dart';
 
 class Playlist extends Object with Observable {
   @observable String id;

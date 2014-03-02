@@ -1,6 +1,6 @@
 library media;
 
-import 'package:polymer/polymer.dart';
+import 'package:observe/observe.dart';
 
 class Media extends Object with Observable {
   // media types
