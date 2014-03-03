@@ -36,7 +36,7 @@ class MainView extends PolymerElement {
 
     model = newModel;
 
-    // select "All" categories
+    // select "All" categories by default
     ($["category-selector"] as PolymerSelector).selected = 0;
   }
 }

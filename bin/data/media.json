@@ -1,23 +1,48 @@
 {
-  "Small": {
+  "Small Toy": {
     "id": "001",
     "category": "Sample Category",
     "type": "video",
-    "title": "Small",
-    "description": "A small sample video.",
+    "title": "Small Toy",
+    "description": "A small sample WebM video.",
     "filename": "small.webm",
     "runtime": "00:05",
     "version": "1.0",
     "language": "en-US"
   },
-  "Bunny": {
+
+  "Big Buck Bunny": {
     "id": "002",
     "category": "Sample Category 2",
     "type": "video",
-    "title": "Bunny",
-    "description": "A larger sample video.",
+    "title": "Big Buck Bunny",
+    "description": "A full preview for a film from the Peach Open Movie Project. Winner of two awards (MovieSquad Audience Award and HAFF Audience Award), it's a fun, family-friendly film that you're sure to enjoy.",
     "filename": "bunny.webm",
     "runtime": "00:32",
+    "version": "1.0",
+    "language": "en-US"
+  },
+
+  "VP8 Tractor Video": {
+    "id": "003",
+    "category": "Sample Category",
+    "type": "video",
+    "title": "VP8 Tractor Video",
+    "description": "A short sample WebM video of a tractor, using the VP8 codec.",
+    "filename": "out8.webm",
+    "runtime": "00:09",
+    "version": "1.0",
+    "language": "en-US"
+  },
+
+  "Sunflower and Bee": {
+    "id": "004",
+    "category": "Sample Category 2",
+    "type": "video",
+    "title": "Sunflower and Bee",
+    "description": "A bee does its business with a sunflower.",
+    "filename": "sunflower.webm",
+    "runtime": "00:20",
     "version": "1.0",
     "language": "en-US"
   }

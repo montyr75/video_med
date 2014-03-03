@@ -8,6 +8,15 @@
 
       .panel {
         margin: 5px;
+        position: relative;
+      }
+
+      .panel-body {
+        position: absolute;
+        top: 3em;
+        bottom: 0;
+        right: .5em;
+        left: 0;
       }
 
       #categories-view {
@@ -17,6 +26,24 @@
 
       #category-selector li:first-of-type {
         font-style: italic;
+      }
+
+      .thumbnail {
+        margin-bottom: 5px;;
+      }
+
+      .media-title {
+        margin: 2px 0 0 5px;
+      }
+
+      #filtered-media-box {
+        overflow: auto;
+        white-space: nowrap;
+        position: absolute;
+        top: 15px;
+        bottom: 0;
+        right: 0;
+        left: 225px;
       }
     </style>
 
@@ -54,12 +81,21 @@
             </polymer-selector>
           </div>
 
-          <div id="filtered-media-view" class="flex1">
-            <ul class="list-unstyled">
-              <template repeat="{{item in model.media}}">
-                <li>{{item.title}}</li>
-              </template>
-            </ul>
+          <div id="filtered-media-box" class="flex1">
+            <template repeat="{{item in model.media}}">
+              <div class="thumbnail flexbox-row-nowrap">
+                <div class="flex1 flexbox-row-nowrap">
+                  <span class="glyphicon glyphicon-film"></span>
+                  <h5 class="media-title">{{item.title}} ({{item.runtime}})</h5>
+                </div>
+
+                <div class="btn-group btn-group-xs">
+                  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-play"></span></button>
+                  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+              </div>
+            </template>
           </div>
         </div>
       </div>
