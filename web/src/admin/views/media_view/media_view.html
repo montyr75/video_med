@@ -1,0 +1,36 @@
+<polymer-element name="media-view">
+  <template>
+    <style>
+      @import "resources/css/app.css";
+
+      .thumbnail {
+        margin-bottom: 0.3em;
+      }
+
+      .media-title {
+        margin: 0.15em 0 0 0.4em;
+      }
+   </style>
+
+    <div class="thumbnail flexbox-row-nowrap">
+      <div class="flex1 flexbox-row-nowrap">
+        <template if="{{media.type == 'video'}}">
+          <span class="glyphicon glyphicon-film"></span>
+        </template>
+
+        <h5 class="media-title">{{media.title}} ({{media.runtime}})</h5>
+      </div>
+
+      <div>
+        <button type="button" class="btn btn-default btn-xs" on-click="{{addClicked}}"><span class="glyphicon glyphicon-plus"></span></button>
+        <button type="button" class="btn btn-default btn-xs" on-click="{{playClicked}}"><span class="glyphicon glyphicon-play"></span></button>
+
+        <template if="{{showRemoveButton}}">
+          <button type="button" class="btn btn-default btn-xs" on-click="{{removeClicked}}"><span class="glyphicon glyphicon-remove"></span></button>
+        </template>
+      </div>
+    </div>
+  </template>
+
+  <script type="application/dart" src="media_view.dart"></script>
+</polymer-element>

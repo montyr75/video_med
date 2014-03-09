@@ -1,6 +1,7 @@
 <polymer-element name="main-view">
   <link rel="import" href="../../../shared/views/login_view/login_view.html">
   <link rel="import" href="packages/polymer_elements/polymer_selector/polymer_selector.html">
+  <link rel="import" href="../media_view/media_view.html">
 
   <template>
     <style>
@@ -26,14 +27,6 @@
 
       #category-selector li:first-of-type {
         font-style: italic;
-      }
-
-      .thumbnail {
-        margin-bottom: 5px;;
-      }
-
-      .media-title {
-        margin: 2px 0 0 5px;
       }
 
       #filtered-media-box {
@@ -74,27 +67,16 @@
 
         <div class="panel-body flexbox-row-nowrap">
           <div id="categories-view">
-            <polymer-selector id="category-selector" class="nav nav-pills nav-stacked" selectedClass="active" on-polymer-activate="{{categorySelected}}">
-              <template repeat="{{category in model.categories}}">
+            <polymer-selector id="category-selector" class="nav nav-pills nav-stacked" selectedClass="active" on-polymer-activate="{{mediaCategorySelected}}">
+              <template repeat="{{category in model.mediaCategories}}">
                 <li class="user-select-none" style="cursor: default;"><a>{{category}}</a></li>
               </template>
             </polymer-selector>
           </div>
 
           <div id="filtered-media-box" class="flex1">
-            <template repeat="{{item in model.media}}">
-              <div class="thumbnail flexbox-row-nowrap">
-                <div class="flex1 flexbox-row-nowrap">
-                  <span class="glyphicon glyphicon-film"></span>
-                  <h5 class="media-title">{{item.title}} ({{item.runtime}})</h5>
-                </div>
-
-                <div class="btn-group btn-group-xs">
-                  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-                  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-play"></span></button>
-                  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
-                </div>
-              </div>
+            <template repeat="{{media in filteredMedia}}">
+              <media-view media="{{media}}" on-add-media="{{addMedia}}" on-play-media="{{playMedia}}"></media-view>
             </template>
           </div>
         </div>
