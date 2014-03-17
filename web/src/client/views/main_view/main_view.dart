@@ -6,8 +6,8 @@ import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/polymer_collapse/polymer_collapse.dart';
 import 'package:VideoMed/global.dart';
 import 'package:VideoMed/playlist.dart';
-//import 'package:VideoMed/media.dart';
 import '../../../utils/client_connection_manager.dart';
+import 'package:html_components/html_components.dart';
 
 @CustomTag('main-view')
 class MainView extends PolymerElement {
@@ -16,10 +16,13 @@ class MainView extends PolymerElement {
 
   VideoElement videoPlayer;
   PolymerCollapse headerCollapse;
+  DialogComponent connectionProblemDialog;
+
   Playlist currentPlaylist;
 
   MainView.created() : super.created() {
     // listen for events
+    ccm.onDisconnect.listen(connectionProblem);
     ccm.onPlaylist.listen(newPlaylistReceived);
   }
 
@@ -31,6 +34,7 @@ class MainView extends PolymerElement {
     Timer.run(() {
       videoPlayer = $['video-player'];
       headerCollapse = $['header-collapse'];
+      connectionProblemDialog = $['connection-problem-dialog'];
     });
   }
 
@@ -49,6 +53,18 @@ class MainView extends PolymerElement {
 //    videoPlayer
 //      ..requestFullscreen()
 //      ..play();
+  }
+
+  void connectionProblem(_) {
+    print("MainView::connectionProblem()");
+
+    connectionProblemDialog.show();
+  }
+
+  void hideConnectionProblemDialog([Event event, var detail, Element target]) {
+    print("MainView::hideConnectionProblemDialog()");
+
+    connectionProblemDialog.hide();
   }
 
   void newPlaylistReceived(Playlist pl) {
