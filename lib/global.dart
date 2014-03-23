@@ -1,6 +1,6 @@
 library global;
 
-import 'package:event_bus/event_bus.dart';
+//import 'package:event_bus/event_bus.dart';
 
 // constants
 const String SERVER_IP = "192.168.1.8";
@@ -9,6 +9,6 @@ const String VIDEO_PATH = "resources/videos/";
 const String ADMIN_ID = "admin";
 
 // event bus
-EventBus eventBus = new EventBus();
+//EventBus eventBus = new EventBus();
 
 // events
