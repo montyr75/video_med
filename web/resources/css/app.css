@@ -1,5 +1,5 @@
 @import url("http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css");
-@import "flexbox.css";
+@import "/video_med/web/resources/css/flexbox.css";
 
 body {
   min-height: 100vh;
@@ -40,7 +40,7 @@ img {
   user-drag: none;
 }
 
-header {
+#app-header {
   height: 45px;
   background-color: black;
   padding: 0 10px 0 10px;

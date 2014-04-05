@@ -15,8 +15,8 @@ class MainView extends PolymerElement {
   @observable ClientConnectionManager ccm = new ClientConnectionManager();
 
   VideoElement videoPlayer;
-  PolymerCollapse headerCollapse;
-  DialogComponent connectionProblemDialog;
+  Element headerCollapse;   // PolymerCollapse
+  Element connectionProblemDialog;  // DialogComponent
 
   Playlist currentPlaylist;
 

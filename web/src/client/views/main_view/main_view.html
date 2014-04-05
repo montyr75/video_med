@@ -3,12 +3,10 @@
   <link rel="import" href="packages/polymer_elements/polymer_collapse/polymer_collapse.html">
   <link rel="import" href="packages/html_components/dialog/dialog.html">
 
-  <template>
-    <style>
-      @import "../../../../resources/css/app.css";
-    </style>
+  <link rel="stylesheet" href="../../../../resources/css/app.css">
 
-    <header id="header" class="flexbox-row-nowrap flex-justify-space-between flex-align-items-center">
+  <template>
+    <header id="app-header" class="flexbox-row-nowrap flex-justify-space-between flex-align-items-center">
       <h3 id="app-title">Client</h3>
       <login-view ccm="{{ccm}}"></login-view>
     </header>
@@ -33,5 +31,5 @@
     </main>
   </template>
 
-  <script type="application/dart" src="main_view.dart"></script>
+  <script type="application/dart;component=1" src="main_view.dart"></script>
 </polymer-element>
