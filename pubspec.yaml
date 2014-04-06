@@ -4,7 +4,7 @@ dependencies:
   args: any
   html_components: any
   polymer: ">=0.10.0-pre.7 <0.11.0"
-  polymer_elements: ">=0.2.0-pre.0 <0.3.0"
+  polymer_elements: ">=0.2.0-pre.2 <0.3.0"
   route: any
 transformers:
 - polymer:

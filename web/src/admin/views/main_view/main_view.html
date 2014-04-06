@@ -4,9 +4,9 @@
   <link rel="import" href="../media_view/media_view.html">
 
   <template>
-    <style>
-      @import "../../../../resources/css/app.css";
+    <link rel="stylesheet" href="../../../../resources/css/app.css">
 
+    <style>
       .panel {
         margin: 5px;
         position: relative;
@@ -67,7 +67,7 @@
 
         <div class="panel-body flexbox-row-nowrap">
           <div id="categories-view">
-            <polymer-selector id="category-selector" class="nav nav-pills nav-stacked" selectedClass="active" on-polymer-activate="{{mediaCategorySelected}}">
+            <polymer-selector id="category-selector" class="nav nav-pills nav-stacked" selectedClass="active" on-polymer-select="{{mediaCategorySelected}}">
               <template repeat="{{category in model.mediaCategories}}">
                 <li class="user-select-none" style="cursor: default;"><a>{{category}}</a></li>
               </template>

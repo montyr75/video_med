@@ -35,16 +35,20 @@ class MainView extends PolymerElement {
 
     // select "All" media categories by default
     ($["category-selector"] as PolymerSelector).selected = 0;
-    Timer.run(mediaCategorySelected);
   }
 
-  void mediaCategorySelected([Event event, var detail, var target]) {
-    target = target != null ? target : $["category-selector"];
-    String selectedCategory = model.mediaCategories[target.selectedIndex];
+  void mediaCategorySelected(Event event, var detail, PolymerSelector target) {
+    // only change the category when one is selected (as opposed to deselected)
+    if (detail != null && !detail["isSelected"]) {
+      return;
+    }
 
-    print("MainView::mediaCategorySelected() -- $selectedCategory");
-
-    filteredMedia = selectedCategory == "All" ? model.media : model.media.where((Media item) => item.category == model.mediaCategories[target.selectedIndex]).toList();
+    // gotta check the selectedIndex async to allow the bindings to update
+    Timer.run(() {
+      String selectedCategory = model.mediaCategories[target.selectedIndex];
+      filteredMedia = selectedCategory == "All" ? model.media : model.media.where((Media item) => item.category == selectedCategory).toList();
+      print("MainView::mediaCategorySelected() -- ${target.selectedIndex}: $selectedCategory");
+    });
   }
 
   void addMedia(Event event, Media detail, Element target) {
