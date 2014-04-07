@@ -224,7 +224,7 @@
     </div>
   </template>
 
-  <script type="application/dart">
+  <script type="application/dart;component=1">
     import 'dart:html';
     import 'package:polymer/polymer.dart';
 
@@ -240,9 +240,6 @@
         super.enteredView();
         print("CSSSpinner::enteredView()");
       }
-
-      // this lets the global CSS bleed through into the Shadow DOM of this element
-      bool get applyAuthorStyles => true;
     }
   </script>
 </polymer-element>

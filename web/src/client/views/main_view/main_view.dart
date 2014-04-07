@@ -58,13 +58,23 @@ class MainView extends PolymerElement {
   void connectionProblem(_) {
     print("MainView::connectionProblem()");
 
-    connectionProblemDialog.show();
+//    connectionProblemDialog.show();
+
+    // make sure header is showing
+    if (headerCollapse.closed) {
+      headerCollapse.toggle();
+    }
+
+    // make sure video is stopped
+    if (!videoPlayer.paused) {
+      videoPlayer.pause();
+    }
   }
 
   void hideConnectionProblemDialog([Event event, var detail, Element target]) {
     print("MainView::hideConnectionProblemDialog()");
 
-    connectionProblemDialog.hide();
+//    connectionProblemDialog.hide();
   }
 
   void newPlaylistReceived(Playlist pl) {
@@ -73,6 +83,7 @@ class MainView extends PolymerElement {
     currentPlaylist = pl;
     playNextVideo();
 
+    // make sure header is not showing
     if (!headerCollapse.closed) {
       headerCollapse.toggle();
     }
