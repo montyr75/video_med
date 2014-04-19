@@ -16,12 +16,15 @@ class MainView extends PolymerElement {
 
   VideoElement videoPlayer;
   PolymerCollapse headerCollapse;
-  Element connectionProblemDialog;  // DialogComponent
+  DialogComponent connectionProblemDialog;
+
+  @observable String connectionErrorMessage;    // shows up in connectionProblemDialog
 
   Playlist currentPlaylist;
 
   MainView.created() : super.created() {
     // listen for events
+    ccm.onConnect.listen((_) => connectionErrorMessage = null, onError: (StateError e) => connectionErrorMessage = e.message);
     ccm.onDisconnect.listen(connectionProblem);
     ccm.onPlaylist.listen(newPlaylistReceived);
   }
@@ -58,7 +61,7 @@ class MainView extends PolymerElement {
   void connectionProblem(_) {
     print("MainView::connectionProblem()");
 
-//    connectionProblemDialog.show();
+    connectionProblemDialog.show();
 
     // make sure header is showing
     if (headerCollapse.closed) {
@@ -74,7 +77,7 @@ class MainView extends PolymerElement {
   void hideConnectionProblemDialog([Event event, var detail, Element target]) {
     print("MainView::hideConnectionProblemDialog()");
 
-//    connectionProblemDialog.hide();
+    connectionProblemDialog.hide();
   }
 
   void newPlaylistReceived(Playlist pl) {

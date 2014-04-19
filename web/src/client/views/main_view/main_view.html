@@ -19,16 +19,18 @@
         <!--source src="resources/videos/bunny.webm" type='video/webm; codecs="vp8, vorbis"' /-->
       </video>
 
-      <!--<h-dialog id="connection-problem-dialog" modal>-->
-        <!--<header>Server Connection Lost</header>-->
+      <h-dialog id="connection-problem-dialog" modal>
+        <header>No Server Connection</header>
+        <template if="{{connectionErrorMessage != null}}">
+          <div class="alert alert-danger">{{connectionErrorMessage}}</div>
+        </template>
+        <p style="margin-bottom: 0;">The connection to the media server has been lost or terminated.</p>
+        <p style="margin-top: 0;">Please reconnect to continue operations.</p>
 
-        <!--<p style="margin-bottom: 0;">The connection to the media server has been lost or terminated.</p>-->
-        <!--<p style="margin-top: 0;">Please reconnect to continue operations.</p>-->
-
-        <!--<div style="text-align: center;">-->
-          <!--<button class="btn btn-default" on-click="{{hideConnectionProblemDialog}}">OK</button>-->
-        <!--</div>-->
-      <!--</h-dialog>-->
+        <div style="text-align: center;">
+          <button class="btn btn-default" on-click="{{hideConnectionProblemDialog}}">OK</button>
+        </div>
+      </h-dialog>
     </main>
   </template>
 
