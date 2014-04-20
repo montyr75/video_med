@@ -22,11 +22,20 @@ class ClientConnectionManager extends Object with Observable {
   @observable bool connecting = false;
   @observable bool connected = false;
 
+  bool _disableAdminID;
   bool connectionPending = false;
 
-  ClientConnectionManager();
+  ClientConnectionManager({disableAdminID: true}) {
+    _disableAdminID = disableAdminID;
+  }
 
   void connectToServer(clientID, serverIP, serverPort) {
+    // if this is not the admin app, don't allow admin sign-in
+    if (_disableAdminID && clientID == "admin") {
+      _onConnect.addError(new StateError("Invalid client ID: ${clientID}"));
+      return;
+    }
+
     // reset status properties
     connecting = false;
     connected = false;

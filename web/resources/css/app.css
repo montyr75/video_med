@@ -49,3 +49,7 @@ img {
 #app-title {
   color: white;
 }
+
+.hide {
+  visibility: hidden;
+}

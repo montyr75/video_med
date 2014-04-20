@@ -2,6 +2,7 @@
   <link rel="import" href="../../../shared/views/login_view/login_view.html">
   <link rel="import" href="packages/polymer_elements/polymer_selector/polymer_selector.html">
   <link rel="import" href="../media_view/media_view.html">
+  <link rel="import" href="packages/html_components/dialog/dialog.html">
 
   <template>
     <link rel="stylesheet" href="../../../../resources/css/app.css">
@@ -46,7 +47,7 @@
     </header>
 
     <main class="flexbox-column-nowrap flex-justify-space-around flex1">
-      <div class="panel panel-default flex1">
+      <div class="panel panel-default flex1 {{ {hide: !ccm.connected} }}">
         <div class="panel-heading">
           Playlists
         </div>
@@ -60,7 +61,7 @@
         </div>
       </div>
 
-      <div class="panel panel-default flex1">
+      <div class="panel panel-default flex1 {{ {hide: !ccm.connected} }}">
         <div class="panel-heading">
           Media
         </div>
@@ -81,6 +82,19 @@
           </div>
         </div>
       </div>
+
+      <h-dialog id="connection-problem-dialog" modal>
+        <header>No Server Connection</header>
+        <template if="{{connectionErrorMessage != null}}">
+          <div class="alert alert-danger">{{connectionErrorMessage}}</div>
+        </template>
+        <p style="margin-bottom: 0;">There is no connection to the media server.</p>
+        <p style="margin-top: 0;">Please reconnect to continue operations.</p>
+
+        <div style="text-align: center;">
+          <button class="btn btn-default" on-click="{{hideConnectionProblemDialog}}">OK</button>
+        </div>
+      </h-dialog>
     </main>
   </template>
 

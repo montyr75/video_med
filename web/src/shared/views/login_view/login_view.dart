@@ -52,7 +52,7 @@ class LoginView extends PolymerElement {
   }
 
   void _registerClientID([String badClientID = null]) {
-    print("ConnectionView::registerClientID() -- $clientID");
+    print("LoginView::registerClientID() -- $clientID");
 
     // connect and register client ID with server
     ccm.connectToServer(clientID, SERVER_IP, SERVER_PORT);
@@ -62,17 +62,17 @@ class LoginView extends PolymerElement {
   }
 
   void _connected(String clientID) {
-    print("ConnectionView::connected() -- $clientID");
+    print("LoginView::connected() -- $clientID");
   }
 
   void _disconnected(String clientID) {
-    print("ConnectionView::disconnected() -- $clientID");
+    print("LoginView::disconnected() -- $clientID");
 
     // TODO: display status to user
   }
 
   void _connectionError(StateError error) {
-    print("ConnectionView::connectionError() -- ${error.message}");
+    print("LoginView::connectionError() -- ${error.message}");
 
     // TODO: display error to user
   }

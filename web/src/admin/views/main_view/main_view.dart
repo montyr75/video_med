@@ -9,23 +9,35 @@ import 'package:VideoMed/playlist.dart';
 import 'package:VideoMed/media.dart';
 import '../../../utils/client_connection_manager.dart';
 import '../../model/model.dart';
+import 'package:html_components/html_components.dart';
 
 @CustomTag('main-view')
 class MainView extends PolymerElement {
 
-  @observable ClientConnectionManager ccm = new ClientConnectionManager();
+  @observable ClientConnectionManager ccm = new ClientConnectionManager(disableAdminID: false);
   @observable Model model;
-
   @observable List<Media> filteredMedia;
+
+  @observable String connectionErrorMessage;    // shows up in connectionProblemDialog
+
+  DialogComponent connectionProblemDialog;
 
   MainView.created() : super.created() {
     // listen for events
+    ccm.onConnect.listen((_) => connectionErrorMessage = null,
+        onError: (StateError e) => connectionErrorMessage = e.message);
+    ccm.onDisconnect.listen(connectionProblem);
     ccm.onModel.listen(newModelReceived);
   }
 
   @override void enteredView() {
     super.enteredView();
     print("MainView::enteredView()");
+
+    // get UI element references
+    Timer.run(() {
+      connectionProblemDialog = $['connection-problem-dialog'];
+    });
   }
 
   void newModelReceived(Model newModel) {
@@ -61,6 +73,18 @@ class MainView extends PolymerElement {
 
   void removeMedia(Event event, Media detail, Element target) {
     print("MainView::removeMedia() -- ${detail.title}");
+  }
+
+  void connectionProblem(_) {
+    print("MainView::connectionProblem()");
+
+    connectionProblemDialog.show();
+  }
+
+  void hideConnectionProblemDialog([Event event, var detail, Element target]) {
+    print("MainView::hideConnectionProblemDialog()");
+
+    connectionProblemDialog.hide();
   }
 }
 

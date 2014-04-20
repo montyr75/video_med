@@ -24,7 +24,7 @@ class MainView extends PolymerElement {
 
   MainView.created() : super.created() {
     // listen for events
-    ccm.onConnect.listen((_) => connectionErrorMessage = null, onError: (StateError e) => connectionErrorMessage = e.message);
+    ccm.onConnect.listen((_) => connectionErrorMessage = null, onError: connectionProblem);
     ccm.onDisconnect.listen(connectionProblem);
     ccm.onPlaylist.listen(newPlaylistReceived);
   }
@@ -60,6 +60,11 @@ class MainView extends PolymerElement {
 
   void connectionProblem(_) {
     print("MainView::connectionProblem()");
+
+    // if true, function was run by onConnect error--otherwise, it came from onDisconnect
+    if (_ is Error) {
+      connectionErrorMessage = _.message;
+    }
 
     connectionProblemDialog.show();
 
