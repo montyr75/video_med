@@ -18,7 +18,7 @@ ServerConnectionManager scm = new ServerConnectionManager();
 void main(List<String> arguments) {
   // set up argument parser (defaults in global.dart)
   ArgParser parser = new ArgParser()
-    ..addOption('ip', defaultsTo: SERVER_IP)
+    ..addOption('ip', defaultsTo: "0.0.0.0")    // "0.0.0.0" means to listen on all network interfaces, regardless of IP
     ..addOption('port', defaultsTo: SERVER_PORT.toString());
 
   // parse the command-line arguments

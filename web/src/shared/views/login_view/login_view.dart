@@ -55,10 +55,8 @@ class LoginView extends PolymerElement {
     print("LoginView::registerClientID() -- $clientID");
 
     // connect and register client ID with server
-    ccm.connectToServer(clientID, SERVER_IP, SERVER_PORT);
-
-    // TODO: if server and client host have the same IP, we can use this (we probably want this for production)
-    //ccm.connectToServer(clientID, Uri.base.host, SERVER_PORT);
+    ccm.connectToServer(clientID, Uri.base.host, SERVER_PORT);    // this works as long as the server and client run from the same server machine
+    //ccm.connectToServer(clientID, SERVER_IP, SERVER_PORT);      // use this way if the server IP differs from where the client runs
   }
 
   void _connected(String clientID) {
