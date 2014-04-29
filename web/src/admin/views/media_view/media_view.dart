@@ -8,7 +8,7 @@ import 'package:VideoMed/media.dart';
 class MediaView extends PolymerElement {
 
   @published Media media;
-  @published bool showRemoveButton = false;
+  @published bool playlistMode = false;   // playlist media has different UI requirements
 
   MediaView.created() : super.created();
 
@@ -33,6 +33,18 @@ class MediaView extends PolymerElement {
 //    print("MediaView::removeClicked()");
 
     fire("remove-media", detail: media);
+  }
+
+  void moveUpClicked(Event event, var detail, Element target) {
+//    print("MediaView::moveUpClicked()");
+
+    fire("move-up-media", detail: media);
+  }
+
+  void moveDownClicked(Event event, var detail, Element target) {
+//    print("MediaView::moveDownClicked()");
+
+    fire("move-down-media", detail: media);
   }
 }
 

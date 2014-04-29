@@ -22,7 +22,7 @@ class Model extends Object with Observable {
 
     // decode and objectify playlists
     Map playlistsMap = map["playlists"] != null ? map["playlists"] : {};
-    playlistsMap.forEach((String key, Map value) => playlists.add(new Playlist.fromDBMap(value)));
+    playlistsMap.forEach((String key, Map value) => playlists.add(new Playlist.fromMessageMap(value)));
 
     // decode client playlist assignments
     _clientPlaylists = map["clientPlaylists"] != null ? map["clientPlaylists"] : {};

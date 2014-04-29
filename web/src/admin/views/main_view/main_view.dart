@@ -4,7 +4,6 @@ import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/polymer_elements.dart';
-import 'package:VideoMed/global.dart';
 import 'package:VideoMed/playlist.dart';
 import 'package:VideoMed/media.dart';
 import '../../../utils/client_connection_manager.dart';
@@ -19,6 +18,8 @@ class MainView extends PolymerElement {
   @observable List<Media> filteredMedia;
 
   @observable String connectionErrorMessage;    // shows up in connectionProblemDialog
+
+  @observable Playlist selectedPlaylist;
 
   DialogComponent connectionProblemDialog;
 
@@ -49,13 +50,26 @@ class MainView extends PolymerElement {
     ($["category-selector"] as PolymerSelector).selected = 0;
   }
 
+  void playlistSelected(Event event, var detail, PolymerSelector target) {
+    // only change the playlist when one is selected (as opposed to deselected)
+    if (detail != null && !detail["isSelected"]) {
+      return;
+    }
+
+    // gotta check the selectedIndex async-style to allow the bindings to update (target.selectedIndex)
+    Timer.run(() {
+      selectedPlaylist = model.playlists[target.selectedIndex];
+      print("MainView::playlistSelected() -- ${target.selectedIndex}: ${selectedPlaylist.title}");
+    });
+  }
+
   void mediaCategorySelected(Event event, var detail, PolymerSelector target) {
     // only change the category when one is selected (as opposed to deselected)
     if (detail != null && !detail["isSelected"]) {
       return;
     }
 
-    // gotta check the selectedIndex async to allow the bindings to update
+    // gotta check the selectedIndex async-style to allow the bindings to update (target.selectedIndex)
     Timer.run(() {
       String selectedCategory = model.mediaCategories[target.selectedIndex];
       filteredMedia = selectedCategory == "All" ? model.media : model.media.where((Media item) => item.category == selectedCategory).toList();
@@ -73,6 +87,14 @@ class MainView extends PolymerElement {
 
   void removeMedia(Event event, Media detail, Element target) {
     print("MainView::removeMedia() -- ${detail.title}");
+  }
+
+  void moveUpMedia(Event event, Media detail, Element target) {
+    print("MainView::moveUpMedia() -- ${detail.title}");
+  }
+
+  void moveDownMedia(Event event, Media detail, Element target) {
+    print("MainView::moveDownMedia() -- ${detail.title}");
   }
 
   void connectionProblem(_) {

@@ -21,7 +21,7 @@
         left: 0;
       }
 
-      #categories-view {
+      #categories-view, #playlists-view {
         width: 200px;
         margin-right: 10px;
       }
@@ -30,7 +30,7 @@
         font-style: italic;
       }
 
-      #filtered-media-box {
+      #filtered-media-box, #playlist-media-box {
         overflow: auto;
         white-space: nowrap;
         position: absolute;
@@ -52,12 +52,20 @@
           Playlists
         </div>
 
-        <div class="panel-body">
-          <ul class="list-unstyled">
-            <template repeat="{{playlist in model.playlists}}">
-              <li>{{playlist.title}}</li>
+        <div class="panel-body flexbox-row-nowrap">
+          <div id="playlists-view">
+            <polymer-selector id="playlist-selector" class="nav nav-pills nav-stacked" selectedClass="active" on-polymer-select="{{playlistSelected}}">
+              <template repeat="{{playlist in model.playlists}}">
+                <li class="user-select-none" style="cursor: default;"><a>{{playlist.title}}</a></li>
+              </template>
+            </polymer-selector>
+          </div>
+
+          <div id="playlist-media-box" class="flex1">
+            <template repeat="{{media in selectedPlaylist.media}}">
+              <media-view media="{{media}}" playlistMode="true" on-move-up-media="{{moveUpMedia}}" on-move-down-media="{{moveDownMedia}}" on-remove-media="{{removeMedia}}" on-play-media="{{playMedia}}"></media-view>
             </template>
-          </ul>
+          </div>
         </div>
       </div>
 

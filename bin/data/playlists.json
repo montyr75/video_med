@@ -7,5 +7,15 @@
       "Small Toy",
       "Big Buck Bunny"
     ]
+  },
+
+  "Sample Playlist 2": {
+    "id": "001",
+    "title": "Sample Playlist 2",
+    "description": "Another sample playlist.",
+    "mediaNames": [
+      "VP8 Tractor Video",
+      "Sunflower and Bee"
+    ]
   }
 }

@@ -1,6 +1,6 @@
 library playlist;
 
-import "media.dart";
+import 'package:VideoMed/media.dart';
 import 'package:observe/observe.dart';
 
 class Playlist extends Object with Observable {
@@ -8,7 +8,7 @@ class Playlist extends Object with Observable {
   @observable String title;
   @observable String description;
   @observable List<String> mediaNames;
-  List<Media> media = [];     // this only needs to be filled out for clients
+  @observable List<Media> media;     // this only needs to be filled out for clients
 
   Iterator iterator;
 
@@ -21,6 +21,7 @@ class Playlist extends Object with Observable {
 
   Playlist.fromMessageMap(Map map) {
     _fromMap(map);
+    media = toObservable([]);
     map["media"].forEach((Map mediaMap) => media.add(new Media.fromMap(mediaMap)));
 
     reset();

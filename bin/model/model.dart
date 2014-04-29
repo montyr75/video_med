@@ -69,12 +69,15 @@ class Model {
 
     // if the playlist exists, return it with its media List filled out
     if (playlists[playlistName] != null) {
-      Playlist pl = playlists[playlistName];
-      pl.media = pl.mediaNames.map((String name) => media[name]).toList(growable: false);
-      return pl;
+      return _fillOutPlaylistMediaList(playlists[playlistName]);
     }
 
     return null;
+  }
+
+  Playlist _fillOutPlaylistMediaList(Playlist pl) {
+    pl.media = pl.mediaNames.map((String name) => media[name]).toList(growable: false);
+    return pl;
   }
 
   Map _getMediaMaps() {
@@ -87,7 +90,11 @@ class Model {
   Map _getPlaylistMaps() {
     // create Playlist maps
     Map maps = {};
-    playlists.forEach((String key, Playlist value) => maps[key] = value.toDBMap());
+    playlists.forEach((String key, Playlist pl) {
+      pl = _fillOutPlaylistMediaList(pl);
+      maps[key] = pl.toMessageMap();
+    });
+
     return maps;
   }
 
