@@ -1,0 +1,12 @@
+<polymer-element name="video-player">
+  <template>
+    <style>
+    </style>
+
+    <video id="video-player" width="100%" height="100%" on-click="{{togglePlayback}}" on-ended="{{playNextVideo}}">
+      <!--source src="resources/videos/bunny.webm" type='video/webm; codecs="vp8, vorbis"' /-->
+    </video>
+  </template>
+
+  <script type="application/dart;component=1" src="video_player.dart"></script>
+</polymer-element>

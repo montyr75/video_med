@@ -4,9 +4,9 @@ import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/polymer_collapse/polymer_collapse.dart';
-import 'package:VideoMed/global.dart';
 import 'package:VideoMed/playlist.dart';
 import '../../../utils/client_connection_manager.dart';
+import '../../../shared/components/video_player.dart';
 import 'package:html_components/html_components.dart';
 
 @CustomTag('main-view')
@@ -14,13 +14,13 @@ class MainView extends PolymerElement {
 
   @observable ClientConnectionManager ccm = new ClientConnectionManager();
 
-  VideoElement videoPlayer;
+  VideoPlayer videoPlayer;
   PolymerCollapse headerCollapse;
   DialogComponent connectionProblemDialog;
 
   @observable String connectionErrorMessage;    // shows up in connectionProblemDialog
 
-  Playlist currentPlaylist;
+  @observable Playlist currentPlaylist;
 
   MainView.created() : super.created() {
     // listen for events
@@ -44,18 +44,7 @@ class MainView extends PolymerElement {
   void videoClicked(Event event, var detail, Element target) {
     print("MainView::videoClicked()");
 
-    if (videoPlayer.paused) {
-      videoPlayer.play();
-    }
-    else {
-      videoPlayer.pause();
-    }
-
     headerCollapse.toggle();
-
-//    videoPlayer
-//      ..requestFullscreen()
-//      ..play();
   }
 
   void connectionProblem(_) {
@@ -74,9 +63,7 @@ class MainView extends PolymerElement {
     }
 
     // make sure video is stopped
-    if (!videoPlayer.paused) {
-      videoPlayer.pause();
-    }
+    videoPlayer.pause();
   }
 
   void hideConnectionProblemDialog([Event event, var detail, Element target]) {
@@ -89,24 +76,10 @@ class MainView extends PolymerElement {
     print("MainView::newPlaylistReceived() -- $pl");
 
     currentPlaylist = pl;
-    playNextVideo();
 
     // make sure header is not showing
     if (!headerCollapse.closed) {
       headerCollapse.toggle();
-    }
-  }
-
-  void playNextVideo([Event event, var detail, Element target]) {
-    print("MainView::playNextVideo()");
-
-    // TODO: Dart bug prevents nextVid from being strongly typed as Media
-    var nextVid = currentPlaylist.next();
-
-    // TODO: VIDEO_PATH is the base, but there may need to be subfolders (maybe the category name?)
-    if (nextVid != null) {
-      videoPlayer.src = "$VIDEO_PATH${nextVid.filename}";
-      videoPlayer.play();
     }
   }
 }
