@@ -1,0 +1,43 @@
+<polymer-element name="bs-modal-dialog">
+  <template>
+    <link rel="stylesheet" href="../../../resources/css/app.css">
+
+    <style>
+      #container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: rgba(100, 100, 100, 0.3);
+        z-index: 1012;
+      }
+
+      .panel {
+        box-shadow: 0px 5px 10px rgba(0,0,0,0.8);
+      }
+
+      #close-button {
+        float: right;
+        cursor: default !important;
+      }
+    </style>
+
+    <div id="container" class="flexbox-row-nowrap flex-justify-center flex-align-items-center">
+      <div class="panel {{bsPanelClass}}">
+        <div class="panel-heading">
+          <content select=".header"></content>
+          <template if="{{closable}}">
+            <button id="close-button" type="button" class="close" aria-hidden="true" on-click="{{close}}">&times;</button>
+          </template>
+        </div>
+
+        <div class="panel-body">
+          <content></content>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script type="application/dart;component=1" src="bs_modal_dialog.dart"></script>
+</polymer-element>

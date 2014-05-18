@@ -7,7 +7,6 @@ import 'package:polymer_elements/polymer_collapse/polymer_collapse.dart';
 import 'package:VideoMed/playlist.dart';
 import '../../../utils/client_connection_manager.dart';
 import '../../../shared/components/video_player.dart';
-import 'package:html_components/html_components.dart';
 
 @CustomTag('main-view')
 class MainView extends PolymerElement {
@@ -16,8 +15,8 @@ class MainView extends PolymerElement {
 
   VideoPlayer videoPlayer;
   PolymerCollapse headerCollapse;
-  DialogComponent connectionProblemDialog;
 
+  @observable bool showConnectionProblemDialog = false;
   @observable String connectionErrorMessage;    // shows up in connectionProblemDialog
 
   @observable Playlist currentPlaylist;
@@ -37,7 +36,6 @@ class MainView extends PolymerElement {
     Timer.run(() {
       videoPlayer = $['video-player'];
       headerCollapse = $['header-collapse'];
-      connectionProblemDialog = $['connection-problem-dialog'];
     });
   }
 
@@ -55,7 +53,7 @@ class MainView extends PolymerElement {
       connectionErrorMessage = _.message;
     }
 
-    connectionProblemDialog.show();
+    showConnectionProblemDialog = true;
 
     // make sure header is showing
     if (headerCollapse.closed) {
@@ -69,7 +67,7 @@ class MainView extends PolymerElement {
   void hideConnectionProblemDialog([Event event, var detail, Element target]) {
     print("MainView::hideConnectionProblemDialog()");
 
-    connectionProblemDialog.hide();
+    showConnectionProblemDialog = false;
   }
 
   void newPlaylistReceived(Playlist pl) {

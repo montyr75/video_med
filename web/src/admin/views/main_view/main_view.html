@@ -1,7 +1,8 @@
 <link rel="import" href="../../../shared/views/login_view/login_view.html">
 <link rel="import" href="packages/polymer_elements/polymer_selector/polymer_selector.html">
 <link rel="import" href="../media_view/media_view.html">
-<link rel="import" href="packages/html_components/dialog/dialog.html">
+<link rel="import" href="../../../shared/components/bs_modal_dialog.html">
+<link rel="import" href="../../../shared/components/video_player.html">
 
 <polymer-element name="main-view">
   <template>
@@ -91,18 +92,27 @@
         </div>
       </div>
 
-      <h-dialog id="connection-problem-dialog" modal>
-        <header>No Server Connection</header>
-        <template if="{{connectionErrorMessage != null}}">
-          <div class="alert alert-danger">{{connectionErrorMessage}}</div>
-        </template>
-        <p style="margin-bottom: 0;">There is no connection to the media server.</p>
-        <p style="margin-top: 0;">Please reconnect to continue operations.</p>
+      <template if="{{showConnectionProblemDialog}}">
+        <bs-modal-dialog id="connection-problem-dialog">
+          <span class="header"><strong>No Server Connection</strong></span>
 
-        <div style="text-align: center;">
-          <button class="btn btn-default" on-click="{{hideConnectionProblemDialog}}">OK</button>
-        </div>
-      </h-dialog>
+          <template if="{{connectionErrorMessage != null}}">
+            <div class="alert alert-danger">{{connectionErrorMessage}}</div>
+          </template>
+          <p style="margin-bottom: 0;">There is no connection to the media server.</p>
+          <p style="margin-top: 0;">Please reconnect to continue operations.</p>
+
+          <div style="text-align: center; margin-top: 10px;">
+            <button class="btn btn-default" on-click="{{hideConnectionProblemDialog}}">OK</button>
+          </div>
+        </bs-modal-dialog>
+      </template>
+
+      <bs-modal-dialog id="video-preview-dialog" closable on-close="{{hideVideoPreviewDialog}}" hidden?="{{!showVideoPreviewDialog}}">
+        <span class="header"><strong>Video Preview -- {{previewMedia.title}}</strong></span>
+        <video id="video-player" width="640" height="360" controls autoplay></video>
+        <!-- http://pacoup.com/2011/06/12/list-of-true-169-resolutions/ -->
+      </bs-modal-dialog>
     </main>
   </template>
 

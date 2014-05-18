@@ -12,6 +12,7 @@ class VideoPlayer extends PolymerElement {
 
   @published Playlist playlist;
   @published bool autoplay = false;
+  @published bool controls = false;
 
   VideoElement videoPlayer;
 
@@ -30,7 +31,7 @@ class VideoPlayer extends PolymerElement {
   void playlistChanged(oldValue) {
     print("VideoPlayer::playlistChanged()");
 
-    if (playlist == null) {
+    if (playlist == null || videoPlayer == null) {
       return;
     }
 

@@ -27,6 +27,10 @@ class Playlist extends Object with Observable {
     reset();
   }
 
+  Playlist.fromMedia(Media med) {
+    media = toObservable([med]);
+  }
+
   void _fromMap(Map map) {
     id = map["id"];
     title = map["title"];

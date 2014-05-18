@@ -2,10 +2,10 @@ name: VideoMed
 description: Server, admin, and client apps for controlling client video playlists.
 dependencies:
   args: any
-  html_components:
-    git:
-      url: git://github.com/szgabsz91/html-components.git
-  polymer: ">=0.10.0-pre.9 <0.11.0"
+#  html_components:
+#    git:
+#      url: git://github.com/szgabsz91/html-components.git
+  polymer: ">=0.10.0-pre.12 <0.11.0"
   polymer_elements: ">=0.2.0-pre.5 <0.3.0"
   route: any
 transformers:

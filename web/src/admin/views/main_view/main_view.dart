@@ -6,9 +6,9 @@ import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/polymer_elements.dart';
 import 'package:VideoMed/playlist.dart';
 import 'package:VideoMed/media.dart';
+import 'package:VideoMed/global.dart';
 import '../../../utils/client_connection_manager.dart';
 import '../../model/model.dart';
-import 'package:html_components/html_components.dart';
 
 @CustomTag('main-view')
 class MainView extends PolymerElement {
@@ -17,11 +17,13 @@ class MainView extends PolymerElement {
   @observable Model model;
   @observable List<Media> filteredMedia;
 
+  @observable bool showConnectionProblemDialog = false;
   @observable String connectionErrorMessage;    // shows up in connectionProblemDialog
 
   @observable Playlist selectedPlaylist;
 
-  DialogComponent connectionProblemDialog;
+  @observable bool showVideoPreviewDialog = false;
+  @observable Media previewMedia;
 
   MainView.created() : super.created() {
     // listen for events
@@ -34,11 +36,6 @@ class MainView extends PolymerElement {
   @override void enteredView() {
     super.enteredView();
     print("MainView::enteredView()");
-
-    // get UI element references
-    Timer.run(() {
-      connectionProblemDialog = $['connection-problem-dialog'];
-    });
   }
 
   void newModelReceived(Model newModel) {
@@ -83,6 +80,10 @@ class MainView extends PolymerElement {
 
   void playMedia(Event event, Media detail, Element target) {
     print("MainView::playMedia() -- ${detail.title}");
+
+    showVideoPreviewDialog = true;
+    previewMedia = detail;
+    ($['video-player'] as VideoElement).src = "$VIDEO_PATH${previewMedia.filename}";
   }
 
   void removeMedia(Event event, Media detail, Element target) {
@@ -100,13 +101,20 @@ class MainView extends PolymerElement {
   void connectionProblem(_) {
     print("MainView::connectionProblem()");
 
-    connectionProblemDialog.show();
+    showConnectionProblemDialog = true;
   }
 
   void hideConnectionProblemDialog([Event event, var detail, Element target]) {
     print("MainView::hideConnectionProblemDialog()");
 
-    connectionProblemDialog.hide();
+    showConnectionProblemDialog = false;
+  }
+
+  void hideVideoPreviewDialog([Event event, var detail, Element target]) {
+    print("MainView::hideVideoPreviewDialog()");
+
+    showVideoPreviewDialog = false;
+    ($['video-player'] as VideoElement).pause();
   }
 }
 
