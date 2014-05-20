@@ -1,5 +1,6 @@
 library media;
 
+import 'global.dart';
 import 'package:observe/observe.dart';
 
 class Media extends Object with Observable {
@@ -47,4 +48,6 @@ class Media extends Object with Observable {
   }
 
   @override String toString() => "$id: $title";
+
+  String get url => "$VIDEO_PATH$filename";
 }

@@ -2,7 +2,6 @@ library video_player;
 
 import 'dart:html';
 import 'dart:async';
-import 'package:VideoMed/global.dart';
 import 'package:polymer/polymer.dart';
 import 'package:VideoMed/playlist.dart';
 import 'package:VideoMed/media.dart';
@@ -59,7 +58,7 @@ class VideoPlayer extends PolymerElement {
 
     // TODO: VIDEO_PATH is the base and comes from global.dart, but there may need to be subfolders (maybe the category name?)
     if (nextVid != null) {
-      videoPlayer.src = "$VIDEO_PATH${nextVid.filename}";
+      videoPlayer.src = "${nextVid.url}";
       videoPlayer.play();
     }
   }

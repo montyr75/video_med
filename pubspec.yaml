@@ -5,8 +5,8 @@ dependencies:
 #  html_components:
 #    git:
 #      url: git://github.com/szgabsz91/html-components.git
-  polymer: ">=0.10.0-pre.12 <0.11.0"
-  polymer_elements: ">=0.2.0-pre.5 <0.3.0"
+  polymer: ">=0.10.0-pre.12"
+  polymer_elements: ">=0.2.0-pre.5"
   route: any
 transformers:
 - polymer:

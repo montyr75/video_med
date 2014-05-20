@@ -6,7 +6,6 @@ import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/polymer_elements.dart';
 import 'package:VideoMed/playlist.dart';
 import 'package:VideoMed/media.dart';
-import 'package:VideoMed/global.dart';
 import '../../../utils/client_connection_manager.dart';
 import '../../model/model.dart';
 
@@ -83,7 +82,7 @@ class MainView extends PolymerElement {
 
     showVideoPreviewDialog = true;
     previewMedia = detail;
-    ($['video-player'] as VideoElement).src = "$VIDEO_PATH${previewMedia.filename}";
+    ($['video-player'] as VideoElement).src = "${previewMedia.url}";
   }
 
   void removeMedia(Event event, Media detail, Element target) {
