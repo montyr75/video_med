@@ -8,6 +8,8 @@ import '../../../utils/client_connection_manager.dart';
 @CustomTag('login-view')
 class LoginView extends PolymerElement {
 
+  static const CLASS_NAME = "LoginView";
+
   @published ClientConnectionManager ccm;
   @published bool admin = false;
 
@@ -18,7 +20,7 @@ class LoginView extends PolymerElement {
 
   @override void enteredView() {
     super.enteredView();
-    print("LoginView::enteredView()");
+    print("$CLASS_NAME::enteredView()");
 
     // use standard admin ID from global.dart if the "client" is the admin
     if (admin) {
@@ -52,7 +54,7 @@ class LoginView extends PolymerElement {
   }
 
   void _registerClientID([String badClientID = null]) {
-    print("LoginView::registerClientID() -- $clientID");
+    print("$CLASS_NAME::registerClientID() -- $clientID");
 
     // connect and register client ID with server
     ccm.connectToServer(clientID, Uri.base.host, SERVER_PORT);    // this works as long as the server and client run from the same server machine
@@ -60,17 +62,17 @@ class LoginView extends PolymerElement {
   }
 
   void _connected(String clientID) {
-    print("LoginView::connected() -- $clientID");
+    print("$CLASS_NAME::connected() -- $clientID");
   }
 
   void _disconnected(String clientID) {
-    print("LoginView::disconnected() -- $clientID");
+    print("$CLASS_NAME::disconnected() -- $clientID");
 
     // TODO: display status to user
   }
 
   void _connectionError(StateError error) {
-    print("LoginView::connectionError() -- ${error.message}");
+    print("$CLASS_NAME::connectionError() -- ${error.message}");
 
     // TODO: display error to user
   }

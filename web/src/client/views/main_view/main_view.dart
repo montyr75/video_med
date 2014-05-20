@@ -11,6 +11,8 @@ import '../../../shared/components/video_player.dart';
 @CustomTag('main-view')
 class MainView extends PolymerElement {
 
+  static const CLASS_NAME = "MainView";
+
   @observable ClientConnectionManager ccm = new ClientConnectionManager();
 
   VideoPlayer videoPlayer;
@@ -30,7 +32,7 @@ class MainView extends PolymerElement {
 
   @override void enteredView() {
     super.enteredView();
-    print("MainView::enteredView()");
+    print("$CLASS_NAME::enteredView()");
 
     // get UI element references
     Timer.run(() {
@@ -40,13 +42,13 @@ class MainView extends PolymerElement {
   }
 
   void videoClicked(Event event, var detail, Element target) {
-    print("MainView::videoClicked()");
+    print("$CLASS_NAME::videoClicked()");
 
     headerCollapse.toggle();
   }
 
   void connectionProblem(_) {
-    print("MainView::connectionProblem()");
+    print("$CLASS_NAME::connectionProblem()");
 
     // if true, function was run by onConnect error--otherwise, it came from onDisconnect
     if (_ is Error) {
@@ -65,13 +67,13 @@ class MainView extends PolymerElement {
   }
 
   void hideConnectionProblemDialog([Event event, var detail, Element target]) {
-    print("MainView::hideConnectionProblemDialog()");
+    print("$CLASS_NAME::hideConnectionProblemDialog()");
 
     showConnectionProblemDialog = false;
   }
 
   void newPlaylistReceived(Playlist pl) {
-    print("MainView::newPlaylistReceived() -- $pl");
+    print("$CLASS_NAME::newPlaylistReceived() -- $pl");
 
     currentPlaylist = pl;
 

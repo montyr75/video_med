@@ -6,6 +6,8 @@ import 'package:polymer/polymer.dart';
 @CustomTag('bs-modal-dialog')
 class BSModalDialog extends PolymerElement {
 
+  static const CLASS_NAME = "BSModalDialog";
+
   @published bool closable = false;
   @published String bsPanelClass = "panel-default";
 
@@ -13,7 +15,7 @@ class BSModalDialog extends PolymerElement {
 
   @override void enteredView() {
     super.enteredView();
-    print("BSModalDialog::enteredView()");
+    print("$CLASS_NAME::enteredView()");
   }
 
   void close([Event event, var detail, Element target]) {

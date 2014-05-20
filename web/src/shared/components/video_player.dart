@@ -9,6 +9,8 @@ import 'package:VideoMed/media.dart';
 @CustomTag('video-player')
 class VideoPlayer extends PolymerElement {
 
+  static const CLASS_NAME = "VideoPlayer";
+
   @published Playlist playlist;
   @published bool autoplay = false;
   @published bool controls = false;
@@ -19,7 +21,7 @@ class VideoPlayer extends PolymerElement {
 
   @override void enteredView() {
     super.enteredView();
-    print("VideoPlayer::enteredView()");
+    print("$CLASS_NAME::enteredView()");
 
     // get UI element references
     Timer.run(() {
@@ -28,7 +30,7 @@ class VideoPlayer extends PolymerElement {
   }
 
   void playlistChanged(oldValue) {
-    print("VideoPlayer::playlistChanged()");
+    print("$CLASS_NAME::playlistChanged()");
 
     if (playlist == null || videoPlayer == null) {
       return;
@@ -40,7 +42,7 @@ class VideoPlayer extends PolymerElement {
   }
 
   void togglePlayback(Event event, var detail, Element target) {
-    print("VideoPlayer::togglePlayback()");
+    print("$CLASS_NAME::togglePlayback()");
 
     if (videoPlayer.paused) {
       videoPlayer.play();
@@ -51,7 +53,7 @@ class VideoPlayer extends PolymerElement {
   }
 
   void playNextVideo([Event event, var detail, Element target]) {
-    print("VideoPlayer::playNextVideo()");
+    print("$CLASS_NAME::playNextVideo()");
 
     // get next video from playlist
     Media nextVid = playlist.next();

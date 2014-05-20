@@ -9,6 +9,9 @@ import 'package:VideoMed/playlist.dart';
 import '../admin/model/model.dart';
 
 class ClientConnectionManager extends Object with Observable {
+
+  static const CLASS_NAME = "ClientConnectionManager";
+
   String _clientID;
   String _wsURL;
   WebSocket _webSocket;
@@ -44,21 +47,21 @@ class ClientConnectionManager extends Object with Observable {
     _clientID = clientID;
     _wsURL = "ws://$serverIP:$serverPort/ws";
 
-    print("ClientConnectionManager:: connecting $_clientID on $_wsURL");
+    print("$CLASS_NAME:: connecting $_clientID on $_wsURL");
 
     connecting = true;
 
     _webSocket = new WebSocket(_wsURL);
 
     _webSocket.onOpen.first.then((_) {
-      print("ClientConnectionManager:: now connected on: ${_webSocket.url}");
+      print("$CLASS_NAME:: now connected on: ${_webSocket.url}");
 
       _webSocket.onMessage.listen((MessageEvent event) {
         _messageReceived(event.data);
       });
 
       _webSocket.onClose.first.then((_) {
-        print("ClientConnectionManager:: disconnected on: ${_webSocket.url}");
+        print("$CLASS_NAME:: disconnected on: ${_webSocket.url}");
 
         _disconnected();
       });
@@ -81,7 +84,7 @@ class ClientConnectionManager extends Object with Observable {
   void _messageReceived(String jsonStr) {
     Message message = new Message.fromMap(JSON.decode(jsonStr));
 
-    print("ClientConnectionManager::_messageReceived():\n${message}");
+    print("$CLASS_NAME::_messageReceived():\n${message}");
 
     switch (message.type) {
       case Message.CLIENT_ID_REG_ACK: _onConnect.add(message.msg); break;

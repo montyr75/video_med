@@ -12,6 +12,8 @@ import '../../model/model.dart';
 @CustomTag('main-view')
 class MainView extends PolymerElement {
 
+  static const CLASS_NAME = "MainView";
+
   @observable ClientConnectionManager ccm = new ClientConnectionManager(disableAdminID: false);
   @observable Model model;
   @observable List<Media> filteredMedia;
@@ -34,11 +36,11 @@ class MainView extends PolymerElement {
 
   @override void enteredView() {
     super.enteredView();
-    print("MainView::enteredView()");
+    print("$CLASS_NAME::enteredView()");
   }
 
   void newModelReceived(Model newModel) {
-    print("MainView::newModelReceived()");
+    print("$CLASS_NAME::newModelReceived()");
 
     model = newModel;
 
@@ -55,7 +57,7 @@ class MainView extends PolymerElement {
     // gotta check the selectedIndex async-style to allow the bindings to update (target.selectedIndex)
     Timer.run(() {
       selectedPlaylist = model.playlists[target.selectedIndex];
-      print("MainView::playlistSelected() -- ${target.selectedIndex}: ${selectedPlaylist.title}");
+      print("$CLASS_NAME::playlistSelected() -- ${target.selectedIndex}: ${selectedPlaylist.title}");
     });
   }
 
@@ -69,16 +71,16 @@ class MainView extends PolymerElement {
     Timer.run(() {
       String selectedCategory = model.mediaCategories[target.selectedIndex];
       filteredMedia = selectedCategory == "All" ? model.media : model.media.where((Media item) => item.category == selectedCategory).toList();
-      print("MainView::mediaCategorySelected() -- ${target.selectedIndex}: $selectedCategory");
+      print("$CLASS_NAME::mediaCategorySelected() -- ${target.selectedIndex}: $selectedCategory");
     });
   }
 
   void addMedia(Event event, Media detail, Element target) {
-    print("MainView::addMedia() -- ${detail.title}");
+    print("$CLASS_NAME::addMedia() -- ${detail.title}");
   }
 
   void playMedia(Event event, Media detail, Element target) {
-    print("MainView::playMedia() -- ${detail.title}");
+    print("$CLASS_NAME::playMedia() -- ${detail.title}");
 
     showVideoPreviewDialog = true;
     previewMedia = detail;
@@ -86,34 +88,33 @@ class MainView extends PolymerElement {
   }
 
   void removeMedia(Event event, Media detail, Element target) {
-    print("MainView::removeMedia() -- ${detail.title}");
+    print("$CLASS_NAME::removeMedia() -- ${detail.title}");
   }
 
   void moveUpMedia(Event event, Media detail, Element target) {
-    print("MainView::moveUpMedia() -- ${detail.title}");
+    print("$CLASS_NAME::moveUpMedia() -- ${detail.title}");
   }
 
   void moveDownMedia(Event event, Media detail, Element target) {
-    print("MainView::moveDownMedia() -- ${detail.title}");
+    print("$CLASS_NAME::moveDownMedia() -- ${detail.title}");
   }
 
   void connectionProblem(_) {
-    print("MainView::connectionProblem()");
+    print("$CLASS_NAME::connectionProblem()");
 
     showConnectionProblemDialog = true;
   }
 
   void hideConnectionProblemDialog([Event event, var detail, Element target]) {
-    print("MainView::hideConnectionProblemDialog()");
+    print("$CLASS_NAME::hideConnectionProblemDialog()");
 
     showConnectionProblemDialog = false;
   }
 
   void hideVideoPreviewDialog([Event event, var detail, Element target]) {
-    print("MainView::hideVideoPreviewDialog()");
+    print("$CLASS_NAME::hideVideoPreviewDialog()");
 
     showVideoPreviewDialog = false;
     ($['video-player'] as VideoElement).pause();
   }
 }
-
