@@ -1,8 +1,8 @@
 library admin_model;
 
 import 'package:polymer/polymer.dart';
-import 'package:VideoMed/media.dart';
-import 'package:VideoMed/playlist.dart';
+import 'package:videomed/media.dart';
+import 'package:videomed/playlist.dart';
 
 class Model extends Object with Observable {
 

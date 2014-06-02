@@ -5,9 +5,9 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:route/server.dart' show Router;
-import 'package:VideoMed/global.dart';
-import 'package:VideoMed/message.dart';
-import 'package:VideoMed/playlist.dart';
+import 'package:videomed/global.dart';
+import 'package:videomed/message.dart';
+import 'package:videomed/playlist.dart';
 
 import 'model/model.dart';
 import 'utils/server_connection_manager.dart';

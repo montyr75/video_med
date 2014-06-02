@@ -4,8 +4,8 @@ import 'dart:html';
 import 'dart:async';
 import 'dart:convert';
 import 'package:polymer/polymer.dart';
-import 'package:VideoMed/message.dart';
-import 'package:VideoMed/playlist.dart';
+import 'package:videomed/message.dart';
+import 'package:videomed/playlist.dart';
 import '../admin/model/model.dart';
 
 class ClientConnectionManager extends Object with Observable {

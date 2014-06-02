@@ -4,7 +4,7 @@ import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/polymer_collapse/polymer_collapse.dart';
-import 'package:VideoMed/playlist.dart';
+import 'package:videomed/playlist.dart';
 import '../../../utils/client_connection_manager.dart';
 import '../../../shared/components/video_player.dart';
 

@@ -3,8 +3,8 @@ library server_model;
 import 'dart:io';
 import 'dart:convert';
 
-import 'package:VideoMed/media.dart';
-import 'package:VideoMed/playlist.dart';
+import 'package:videomed/media.dart';
+import 'package:videomed/playlist.dart';
 
 class Model {
 

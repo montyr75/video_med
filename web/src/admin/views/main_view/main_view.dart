@@ -4,8 +4,8 @@ import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/polymer_elements.dart';
-import 'package:VideoMed/playlist.dart';
-import 'package:VideoMed/media.dart';
+import 'package:videomed/playlist.dart';
+import 'package:videomed/media.dart';
 import '../../../utils/client_connection_manager.dart';
 import '../../model/model.dart';
 

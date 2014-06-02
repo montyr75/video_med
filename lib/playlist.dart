@@ -1,6 +1,6 @@
 library playlist;
 
-import 'package:VideoMed/media.dart';
+import 'package:videomed/media.dart';
 import 'package:observe/observe.dart';
 
 class Playlist extends Object with Observable {

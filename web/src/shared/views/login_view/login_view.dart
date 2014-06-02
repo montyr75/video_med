@@ -2,7 +2,7 @@ library login_view;
 
 import 'dart:html';
 import 'package:polymer/polymer.dart';
-import 'package:VideoMed/global.dart';
+import 'package:videomed/global.dart';
 import '../../../utils/client_connection_manager.dart';
 
 @CustomTag('login-view')

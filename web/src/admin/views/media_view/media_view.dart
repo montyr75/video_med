@@ -2,7 +2,7 @@ library media_view;
 
 import 'dart:html';
 import 'package:polymer/polymer.dart';
-import 'package:VideoMed/media.dart';
+import 'package:videomed/media.dart';
 
 @CustomTag('media-view')
 class MediaView extends PolymerElement {
