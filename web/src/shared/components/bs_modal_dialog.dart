@@ -13,9 +13,9 @@ class BSModalDialog extends PolymerElement {
 
   BSModalDialog.created() : super.created();
 
-  @override void enteredView() {
-    super.enteredView();
-    print("$CLASS_NAME::enteredView()");
+  @override void attached() {
+    super.attached();
+    print("$CLASS_NAME::attached()");
   }
 
   void close([Event event, var detail, Element target]) {

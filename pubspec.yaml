@@ -2,8 +2,7 @@ name: videomed
 description: Server, admin, and client apps for controlling client video playlists.
 dependencies:
   args: any
-  polymer: '>=0.10.0-pre.13'
-  polymer_elements: '>=0.2.0-pre.7'
+  polymer: any
   route: any
 transformers:
 - polymer:

@@ -3,7 +3,7 @@ library main_view;
 import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
-import 'package:polymer_elements/polymer_collapse/polymer_collapse.dart';
+import '../../../shared/components/polymer_collapse/polymer_collapse.dart';
 import 'package:videomed/playlist.dart';
 import '../../../utils/client_connection_manager.dart';
 import '../../../shared/components/video_player.dart';
@@ -30,9 +30,9 @@ class MainView extends PolymerElement {
     ccm.onPlaylist.listen(newPlaylistReceived);
   }
 
-  @override void enteredView() {
-    super.enteredView();
-    print("$CLASS_NAME::enteredView()");
+  @override void attached() {
+    super.attached();
+    print("$CLASS_NAME::attached()");
 
     // get UI element references
     Timer.run(() {

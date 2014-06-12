@@ -19,9 +19,9 @@ class VideoPlayer extends PolymerElement {
 
   VideoPlayer.created() : super.created();
 
-  @override void enteredView() {
-    super.enteredView();
-    print("$CLASS_NAME::enteredView()");
+  @override void attached() {
+    super.attached();
+    print("$CLASS_NAME::attached()");
 
     // get UI element references
     Timer.run(() {

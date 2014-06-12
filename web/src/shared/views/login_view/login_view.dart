@@ -18,9 +18,9 @@ class LoginView extends PolymerElement {
 
   LoginView.created() : super.created();
 
-  @override void enteredView() {
-    super.enteredView();
-    print("$CLASS_NAME::enteredView()");
+  @override void attached() {
+    super.attached();
+    print("$CLASS_NAME::attached()");
 
     // use standard admin ID from global.dart if the "client" is the admin
     if (admin) {

@@ -3,7 +3,7 @@ library main_view;
 import 'dart:html';
 import 'dart:async';
 import 'package:polymer/polymer.dart';
-import 'package:polymer_elements/polymer_elements.dart';
+import '../../../shared/components/polymer_selector/polymer_selector.dart';
 import 'package:videomed/playlist.dart';
 import 'package:videomed/media.dart';
 import '../../../utils/client_connection_manager.dart';
@@ -34,9 +34,9 @@ class MainView extends PolymerElement {
     ccm.onModel.listen(newModelReceived);
   }
 
-  @override void enteredView() {
-    super.enteredView();
-    print("$CLASS_NAME::enteredView()");
+  @override void attached() {
+    super.attached();
+    print("$CLASS_NAME::attached()");
   }
 
   void newModelReceived(Model newModel) {

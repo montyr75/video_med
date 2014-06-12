@@ -1,5 +1,5 @@
 <link rel="import" href="css_spinner.html">
-<link rel="import" href="packages/polymer_elements/polymer_localstorage/polymer_localstorage.html">
+<link rel="import" href="../../../shared/components/polymer_localstorage/polymer_localstorage.html">
 
 <polymer-element name="login-view">
   <template>
@@ -31,9 +31,9 @@
           <input id="id-input" class="form-control" type="text" value="{{clientID}}" placeholder="Client ID">
           <span class="input-group-btn" style="margin-right: 0;">
             <button class="btn btn-default" on-click="{{connect}}" disabled?="{{ccm.connecting}}">
-              <template if="{{ccm.connected}}"><img src="resources/images/connected.png" class="connection-indicator"></template>
+              <template if="{{ccm.connected}}"><img src="../../../../resources/images/connected.png" class="connection-indicator"></template>
               <template if="{{ccm.connecting}}"><css-spinner width="16" height="20" /></template>
-              <template if="{{!ccm.connected && !ccm.connecting}}"><img src="resources/images/disconnected.png" class="connection-indicator"></template>
+              <template if="{{!ccm.connected && !ccm.connecting}}"><img src="../../../../resources/images/disconnected.png" class="connection-indicator"></template>
             </button>
           </span>
         </div>
@@ -44,9 +44,9 @@
 
     <template if="{{admin}}">
       <button class="btn btn-default" on-click="{{connect}}" disabled?="{{ccm.connecting}}">
-        <template if="{{ccm.connected}}"><img src="resources/images/connected.png" class="connection-indicator"></template>
+        <template if="{{ccm.connected}}"><img src="../../../../resources/images/connected.png" class="connection-indicator"></template>
         <template if="{{ccm.connecting}}"><css-spinner width="16" height="20" /></template>
-        <template if="{{!ccm.connected && !ccm.connecting}}"><img src="resources/images/disconnected.png" class="connection-indicator"></template>
+        <template if="{{!ccm.connected && !ccm.connecting}}"><img src="../../../../resources/images/disconnected.png" class="connection-indicator"></template>
       </button>
     </template>
   </template>
