@@ -7,12 +7,14 @@
 
     <title>Admin</title>
 
-    <!-- import CSS -->
-    <link rel="stylesheet" href="resources/css/app.css">
+    <!-- import polyfills -->
+    <script src="packages/web_components/platform.js"></script>
 
     <!-- import custom element HTML -->
-    <link rel="import" href="packages/polymer/polymer.html">
     <link rel="import" href="src/admin/views/main_view/main_view.html">
+
+    <!-- import CSS -->
+    <link rel="stylesheet" href="resources/css/app.css">
 
     <!-- initialize Polymer -->
     <script type="application/dart">export 'package:polymer/init.dart';</script>

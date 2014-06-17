@@ -53,10 +53,10 @@ class PolymerCollapse extends PolymerElement {
   bool _isTargetReady = false;
 
   @override
-  void enteredView() {
-    _logger.finest('enteredView');
+  void attached() {
+    _logger.finest('attached');
 
-    super.enteredView();
+    super.attached();
     //TODO (egrimes) Uncomment when installControllerStyles works.
     installControllerStyles();
     this._inDocument = true;
@@ -64,11 +64,11 @@ class PolymerCollapse extends PolymerElement {
   }
 
   @override
-  void leftView() {
-    _logger.finest('leftView');
+  void detached() {
+    _logger.finest('detached');
 
     this.removeListeners(this.target);
-    super.leftView();
+    super.detached();
   }
 
   void targetIdChanged(e) {
